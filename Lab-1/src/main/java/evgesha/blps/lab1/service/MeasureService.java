@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MeasureService {
-    @Autowired
-    private MeasureRepository measureRepository;
+    private final MeasureRepository measureRepository;
 
+    public MeasureService(MeasureRepository measureRepository) {
+        this.measureRepository = measureRepository;
+    }
 }

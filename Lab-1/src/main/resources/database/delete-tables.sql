@@ -1,0 +1,11 @@
+drop table if exists steps;
+drop table if exists recipe_ingredient_relation;
+drop table if exists ingredient;
+drop table if exists measure;
+drop table if exists recipe_tags_relation;
+drop table if exists tags;
+drop table if exists recipe_target_relation;
+drop table if exists target;
+drop table if exists recipe_category_relation;
+drop table if exists category;
+drop table if exists recipe;

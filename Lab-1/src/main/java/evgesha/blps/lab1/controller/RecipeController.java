@@ -13,8 +13,11 @@ import javax.validation.constraints.NotBlank;
 @RestController
 @RequestMapping("/recipes")
 public class RecipeController {
-    @Autowired
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
+
+    public RecipeController(RecipeService recipeService) {
+        this.recipeService = recipeService;
+    }
 
 
     @GetMapping("/getByName")

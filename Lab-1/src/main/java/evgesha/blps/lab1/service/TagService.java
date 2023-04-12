@@ -10,7 +10,6 @@ import java.util.Optional;
 public class TagService {
     private final TagRepository tagRepository;
 
-
     public TagService(TagRepository tagRepository) {
         this.tagRepository = tagRepository;
     }

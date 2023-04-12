@@ -19,8 +19,11 @@ import java.io.File;
 public class ImageController {
     private final static double MAX_IMAGE_SIZE = Math.pow(2, 17);
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
+
+    public ImageController(ImageService imageService) {
+        this.imageService = imageService;
+    }
 
     @PostMapping
     public ResponseEntity<?> uploadImage(
