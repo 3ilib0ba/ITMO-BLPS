@@ -4,6 +4,7 @@ package evgesha.blps.lab1.service;
 import evgesha.blps.lab1.dto.ImageDto;
 import evgesha.blps.lab1.exception.ImageGettingException;
 import evgesha.blps.lab1.exception.ImageSavingException;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,14 @@ public class ImageService {
     private String storageFolderPath;
 
     public ImageDto saveImage(MultipartFile file){
+        String format = file.getContentType();
+
         String uuid = UUID.randomUUID().toString();
-        File savedFile = new File(Paths.get(storageFolderPath, uuid).toString());
+        File savedFile = new File(Paths.get(storageFolderPath, uuid, format).toString());
         try {
             boolean created = savedFile.createNewFile();
             if (!created){
                 throw new ImageSavingException();
-
             }
             FileOutputStream outputStream = new FileOutputStream(savedFile);
             outputStream.write(file.getBytes());
@@ -33,7 +35,7 @@ public class ImageService {
         } catch (IOException e) {
             throw new ImageSavingException();
         }
-        return new ImageDto(uuid);
+        return new ImageDto(uuid + format);
     }
 
     public File getImage(String uuid) {

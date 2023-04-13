@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ImageGettingExceptionHandler {
     @ExceptionHandler(ImageGettingException.class)
     protected ResponseEntity<MessageDto> handleThereIsNoSuchUserException() {
-        return new ResponseEntity<>(new MessageDto("can't get an image"), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new MessageDto("can't get an image"), HttpStatus.NOT_FOUND);
     }
 }

@@ -2,7 +2,7 @@ package evgesha.blps.lab1.controller;
 
 import evgesha.blps.lab1.dto.RecipeDto;
 import evgesha.blps.lab1.service.RecipeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +29,12 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.getAllByName(recipeName));
     }
 
-    @PostMapping("/add")
+    @PostMapping(value = "/add",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addRecipe(
-            @RequestBody RecipeDto recipeDto
-            ) {
+            @RequestBody @Validated RecipeDto recipeDto
+    ) {
         return ResponseEntity.ok(recipeService.addRecipe(recipeDto));
     }
 

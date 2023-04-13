@@ -1,6 +1,7 @@
 package evgesha.blps.lab1.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
 import evgesha.blps.lab1.entity.Category;
 import evgesha.blps.lab1.entity.Ingredient;
 import evgesha.blps.lab1.entity.Tag;
@@ -19,34 +20,45 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecipeDto {
-    @Null(message = "Id must not be set")
     private long id;
 
+    @JsonView
     @Length(min = 1, message = "too small short description")
     @NotNull(message = "short description must be not null")
     private String short_description;
 
+    @JsonView
     @Length(min = 1, message = "too small heading")
     @NotNull(message = "heading must be not null")
     private String heading;
 
+    @JsonView
     private Set<String> categories;
 
+    @JsonView
     private Set<String> targets;
 
+    @JsonView
     private Set<String> tags;
 
+    @JsonView
     private List<IngredientDto> ingredients;
 
+    @JsonView
     private String authorComment;
 
+    @JsonView
     private Integer cookingTime;
 
+    @JsonView
     private Integer servingNumber;
 
+    @JsonView
     private String cuisine;
 
+    @JsonView
     private String photo;
 
+    @JsonView
     private String videoUrl;
 }

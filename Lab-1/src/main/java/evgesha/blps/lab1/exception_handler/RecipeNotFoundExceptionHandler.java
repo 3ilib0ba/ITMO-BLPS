@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class RecipeNotFoundExceptionHandler {
     @ExceptionHandler(RecipeNotFoundException.class)
     protected ResponseEntity<MessageDto> handleRecipeNotFoundException() {
-        return new ResponseEntity<>(new MessageDto("Resipe not found"), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new MessageDto("Recipes not found"), HttpStatus.OK);
     }
 }

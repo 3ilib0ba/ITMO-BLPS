@@ -11,6 +11,7 @@ import evgesha.blps.lab1.repository.IngredientRepository;
 import evgesha.blps.lab1.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,22 +23,27 @@ public class RecipeService {
 
     private final RecipeMapper recipeMapper;
 
-    private final IngredientRepository ingredientRepository;
+    private final IngredientService ingredientService;
 
-    public RecipeService(RecipeRepository recipeRepository, TagService tagService, RecipeMapper recipeMapper, IngredientRepository ingredientRepository) {
+    public RecipeService(
+            RecipeRepository recipeRepository,
+            TagService tagService,
+            RecipeMapper recipeMapper,
+            IngredientService ingredientService
+    ) {
         this.recipeRepository = recipeRepository;
         this.tagService = tagService;
         this.recipeMapper = recipeMapper;
-        this.ingredientRepository = ingredientRepository;
+        this.ingredientService = ingredientService;
     }
 
 
     public List<RecipeDto> getAllByName(String recipeName) {
         List<Recipe> results = recipeRepository.findByHeadingContainsIgnoreCase(recipeName);
         if (results.size() == 0) {
-            throw new RecipeNotFoundException();
+            return new ArrayList<>();
         }
-        return results.stream().map(recipe -> recipeMapper.toDto(recipe)).collect(Collectors.toList());
+        return results.stream().map(recipeMapper::toDto).collect(Collectors.toList());
     }
 
     public MessageDto addRecipe(RecipeDto recipeDto) {
@@ -50,7 +56,7 @@ public class RecipeService {
         );
         recipe.setIngredients(
                 recipe.getIngredients().stream()
-                        .map(ingredientRepository::save)
+                        .map(ingredientService::checkIngredientForMeasureAndSave)
                         .collect(Collectors.toList())
         );
 
