@@ -29,6 +29,12 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.getAllByName(recipeName));
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllRecipes(
+    ) {
+        return ResponseEntity.ok(recipeService.getAllRecipes());
+    }
+
     @PostMapping(value = "/add",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

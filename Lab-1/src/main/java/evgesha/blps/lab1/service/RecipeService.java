@@ -46,6 +46,14 @@ public class RecipeService {
         return results.stream().map(recipeMapper::toDto).collect(Collectors.toList());
     }
 
+    public List<RecipeDto> getAllRecipes() {
+        List<Recipe> results = recipeRepository.findAll();
+        if (results.size() == 0) {
+            return new ArrayList<>();
+        }
+        return results.stream().map(recipeMapper::toDto).collect(Collectors.toList());
+    }
+
     public MessageDto addRecipe(RecipeDto recipeDto) {
         Recipe recipe = recipeMapper.fromDto(recipeDto);
 

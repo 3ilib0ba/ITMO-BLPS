@@ -9,4 +9,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 
     List<Recipe> findByHeadingContainsIgnoreCase(String heading);
 
+    List<Recipe> findAll();
+
 }
