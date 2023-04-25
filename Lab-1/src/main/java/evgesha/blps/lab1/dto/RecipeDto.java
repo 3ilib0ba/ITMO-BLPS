@@ -2,17 +2,12 @@ package evgesha.blps.lab1.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
-import evgesha.blps.lab1.entity.Category;
-import evgesha.blps.lab1.entity.Ingredient;
-import evgesha.blps.lab1.entity.Tag;
-import evgesha.blps.lab1.entity.Target;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Set;
 

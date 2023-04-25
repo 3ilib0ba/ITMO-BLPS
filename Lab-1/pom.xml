@@ -27,7 +27,6 @@
             <version>2.6.3</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
@@ -41,6 +40,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+            <version>42.3.8</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -66,20 +66,6 @@
 
     <build>
         <finalName>BLPS-POVARENOK</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 
 </project>

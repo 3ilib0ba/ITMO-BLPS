@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 @Validated
@@ -39,7 +40,7 @@ public class RecipeController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addRecipe(
-            @RequestBody @Validated RecipeDto recipeDto
+            @Valid @RequestBody RecipeDto recipeDto
     ) {
         return ResponseEntity.ok(recipeService.addRecipe(recipeDto));
     }
