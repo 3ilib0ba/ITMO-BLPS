@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ImageGettingExceptionHandler {
     @ExceptionHandler(ImageGettingException.class)
-    protected ResponseEntity<MessageDto> handleThereIsNoSuchUserException() {
+    protected ResponseEntity<MessageDto> handleNotFoundException() {
         return new ResponseEntity<>(new MessageDto("can't get an image"), HttpStatus.NOT_FOUND);
     }
 }

@@ -40,10 +40,10 @@ public class ImageController {
 
     @GetMapping("/{uuid}")
     public ResponseEntity<Object> downloadImage(
-            @PathVariable("uuid") String uuid
+            @PathVariable("uuid") String filename
     ) {
-        File file = imageService.getImage(uuid);
-        InputStreamResource imageStream = imageService.getImageStream(uuid);
+        File file = imageService.getImage(filename);
+        InputStreamResource imageStream = imageService.getImageStream(filename);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));

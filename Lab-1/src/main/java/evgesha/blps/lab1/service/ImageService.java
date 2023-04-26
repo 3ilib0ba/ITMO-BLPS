@@ -3,6 +3,7 @@ package evgesha.blps.lab1.service;
 
 import evgesha.blps.lab1.dto.ImageDto;
 import evgesha.blps.lab1.exception.ImageGettingException;
+import evgesha.blps.lab1.exception.ImageNotAllowedFileTypeException;
 import evgesha.blps.lab1.exception.ImageSavingException;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -78,7 +79,7 @@ public class ImageService {
             return true;
         }
 
-        throw new ImageSavingException();
+        throw new ImageNotAllowedFileTypeException();
     }
 
 }
