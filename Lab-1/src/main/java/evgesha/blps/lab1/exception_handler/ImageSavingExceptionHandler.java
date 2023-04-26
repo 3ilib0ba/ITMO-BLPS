@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ImageSavingExceptionHandler {
     @ExceptionHandler(ImageSavingException.class)
     protected ResponseEntity<MessageDto> handleThereIsNoSuchUserException() {
-        return new ResponseEntity<>(new MessageDto("can't save an image"), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new MessageDto("can't save an image"), HttpStatus.BAD_REQUEST);
     }
 }

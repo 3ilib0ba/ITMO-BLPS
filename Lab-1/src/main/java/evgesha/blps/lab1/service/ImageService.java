@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,14 +21,20 @@ public class ImageService {
     @Value("${images.path}")
     private String storageFolderPath;
 
-    public ImageDto saveImage(MultipartFile file){
-        String format = file.getContentType();
+    private final String[] allowedFormats = {
+            "jpeg", "jpg", "png", "bmp", "gif"
+    };
 
+    public ImageDto saveImage(MultipartFile file) {
+        String fullFormat = file.getContentType(); // here format like 'image/jpeg'
+        String format = getShortImageFormat(fullFormat);
         String uuid = UUID.randomUUID().toString();
-        File savedFile = new File(Paths.get(storageFolderPath, uuid, format).toString());
+        String fullName = (uuid + "." + format);
+
+        File savedFile = new File(Paths.get(storageFolderPath, fullName).toString());
         try {
             boolean created = savedFile.createNewFile();
-            if (!created){
+            if (!created) {
                 throw new ImageSavingException();
             }
             FileOutputStream outputStream = new FileOutputStream(savedFile);
@@ -35,7 +43,7 @@ public class ImageService {
         } catch (IOException e) {
             throw new ImageSavingException();
         }
-        return new ImageDto(uuid + format);
+        return new ImageDto(fullName);
     }
 
     public File getImage(String uuid) {
@@ -48,6 +56,29 @@ public class ImageService {
         } catch (FileNotFoundException e) {
             throw new ImageGettingException();
         }
+    }
+
+    private String getShortImageFormat(String fullFormat) {
+        String[] splittedFormat = fullFormat.split("/");
+        if (splittedFormat.length != 2) {
+            throw new ImageSavingException();
+        }
+
+        String format = splittedFormat[1];
+        checkFormatForAllowedType(format);
+
+        return format;
+    }
+
+    private boolean checkFormatForAllowedType(String format) {
+        Optional<String> typeOf = Arrays.stream(allowedFormats)
+                .filter(type -> type.equals(format))
+                .findAny();
+        if (typeOf.isPresent()) {
+            return true;
+        }
+
+        throw new ImageSavingException();
     }
 
 }
