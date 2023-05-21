@@ -2,10 +2,7 @@ package evgesha.blps.lab1.service;
 
 
 import evgesha.blps.lab1.dto.ImageDto;
-import evgesha.blps.lab1.exception.ImageGettingException;
-import evgesha.blps.lab1.exception.ImageNotAllowedFileTypeException;
-import evgesha.blps.lab1.exception.ImageSavingException;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
+import evgesha.blps.lab1.exception.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
@@ -26,7 +23,16 @@ public class ImageService {
             "jpeg", "jpg", "png", "bmp", "gif"
     };
 
+    private final static double MAX_IMAGE_SIZE = Math.pow(2, 17);
+
     public ImageDto saveImage(MultipartFile file) {
+        if (file.isEmpty()) {
+            throw new ImageEnterEmptyException();
+        }
+        if (file.getSize() > MAX_IMAGE_SIZE) {
+            throw new ImageTooBigException();
+        }
+
         String fullFormat = file.getContentType(); // here format like 'image/jpeg'
         String format = getShortImageFormat(fullFormat);
         String uuid = UUID.randomUUID().toString();

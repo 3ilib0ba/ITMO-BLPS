@@ -1,12 +1,8 @@
 package evgesha.blps.lab1.controller;
 
-import evgesha.blps.lab1.dto.MessageDto;
 import evgesha.blps.lab1.service.ImageService;
-import io.swagger.annotations.ApiImplicitParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +13,6 @@ import java.io.File;
 @RestController
 @RequestMapping("/image")
 public class ImageController {
-    private final static double MAX_IMAGE_SIZE = Math.pow(2, 17);
-
     private final ImageService imageService;
 
     public ImageController(ImageService imageService) {
@@ -29,12 +23,6 @@ public class ImageController {
     public ResponseEntity<?> uploadImage(
             @RequestParam("file") MultipartFile file
     ) {
-        if (file.isEmpty()) {
-            return new ResponseEntity<>(new MessageDto("image is empty"), HttpStatus.BAD_REQUEST);
-        }
-        if (file.getSize() > MAX_IMAGE_SIZE) {
-            return new ResponseEntity<>(new MessageDto("image is too large"), HttpStatus.BAD_REQUEST);
-        }
         return ResponseEntity.ok(imageService.saveImage(file));
     }
 
