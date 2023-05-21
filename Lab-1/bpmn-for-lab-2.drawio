@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-05-21T19:22:45.601Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="mNt7pcDOrrrSoAxvJLN9" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2023-05-21T19:27:00.879Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="xCVackrZxEbSOBp4HErV" version="21.2.8" type="device">
   <diagram name="Page-1" id="2a216829-ef6e-dabb-86c1-c78162f3ba2b">
-    <mxGraphModel dx="4435" dy="2090" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="2359" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -275,6 +275,9 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="PTzUnINsF3Rz3Xm2qpvn-149" value="Пользователь авторизован?" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="qpvoAuEP9f7sLUJtAsiq-24">
+          <mxGeometry x="1140" y="280" width="110" height="30" as="geometry" />
+        </mxCell>
         <mxCell id="qpvoAuEP9f7sLUJtAsiq-36" value="Сервер" style="swimlane;html=1;startSize=20;horizontal=0;" parent="qpvoAuEP9f7sLUJtAsiq-23" vertex="1">
           <mxGeometry x="20" y="570" width="2420" height="380" as="geometry" />
         </mxCell>
@@ -339,7 +342,7 @@
             <mxPoint x="1450" y="-310" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="PTzUnINsF3Rz3Xm2qpvn-137" value="добавить пользователя" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;taskMarker=abstract;fontSize=10;" vertex="1" parent="qpvoAuEP9f7sLUJtAsiq-36">
+        <mxCell id="PTzUnINsF3Rz3Xm2qpvn-137" value="добавить пользователя/авторизоваться" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;taskMarker=abstract;fontSize=10;" vertex="1" parent="qpvoAuEP9f7sLUJtAsiq-36">
           <mxGeometry x="1260" y="65" width="120" height="70" as="geometry" />
         </mxCell>
         <mxCell id="PTzUnINsF3Rz3Xm2qpvn-138" value="" style="shape=datastore;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fontSize=10;" vertex="1" parent="qpvoAuEP9f7sLUJtAsiq-36">
@@ -494,7 +497,7 @@
             <mxPoint x="1070" y="-140" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="PTzUnINsF3Rz3Xm2qpvn-118" value="добавить пользователя" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;taskMarker=abstract;fontSize=10;" vertex="1" parent="qpvoAuEP9f7sLUJtAsiq-108">
+        <mxCell id="PTzUnINsF3Rz3Xm2qpvn-118" value="добавить пользователя/авторизоваться" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;taskMarker=abstract;fontSize=10;" vertex="1" parent="qpvoAuEP9f7sLUJtAsiq-108">
           <mxGeometry x="890" y="50" width="120" height="70" as="geometry" />
         </mxCell>
         <mxCell id="PTzUnINsF3Rz3Xm2qpvn-119" value="" style="shape=datastore;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fontSize=10;" vertex="1" parent="qpvoAuEP9f7sLUJtAsiq-108">
