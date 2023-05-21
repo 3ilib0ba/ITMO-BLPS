@@ -6,12 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.SpringVersion;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@SpringBootApplication(scanBasePackages={"evgesha.blps.lab1"})
-@EnableSwagger2
+@SpringBootApplication
 public class Lab1Application implements CommandLineRunner {
     @Autowired
     private ObjectMapper objectMapper;
