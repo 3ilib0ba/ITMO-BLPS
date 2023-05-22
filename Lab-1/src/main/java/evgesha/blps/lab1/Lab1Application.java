@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Lab1Application implements CommandLineRunner {
+
     @Autowired
     private ObjectMapper objectMapper;
 

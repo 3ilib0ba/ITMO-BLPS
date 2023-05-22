@@ -72,6 +72,7 @@ public class ImageService {
         }
 
         String format = splittedFormat[1];
+        //System.out.println("format: " + fullFormat + ", short: " + format);
         checkFormatForAllowedType(format);
 
         return format;
