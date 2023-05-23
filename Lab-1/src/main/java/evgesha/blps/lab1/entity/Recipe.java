@@ -76,7 +76,6 @@ public class Recipe {
     @Column(name = "video_url")
     private String videoUrl;
 
-
     private Integer userId;
 
     @Override

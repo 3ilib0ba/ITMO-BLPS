@@ -1,11 +1,3 @@
-create table if not exists users
-(
-    id                serial primary key,
-    username          varchar(255) not null unique,
-    password          varchar(255) not null,
-    role              varchar(255) not null
-);
-
 create table if not exists recipe
 (
     id                serial primary key,
@@ -18,7 +10,6 @@ create table if not exists recipe
     main_photo        text,
     video_url         text,
     user_id           int not null
-        references users (id)
 );
 
 create table if not exists category
@@ -93,10 +84,10 @@ create table if not exists recipe_ingredient_relation
 create table if not exists comments
 (
     id          serial primary key,
+    text        text not null,
     recipe_id   int not null
         references recipe (id),
     user_id     int not null
-        references users (id)
 );
 
 
