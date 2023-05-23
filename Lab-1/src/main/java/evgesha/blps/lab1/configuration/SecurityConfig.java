@@ -47,7 +47,7 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.GET, "/recipes/getAll")
                         .hasAnyAuthority(Role.ADMIN.name())
 
-                        .antMatchers(HttpMethod.POST, "/register")
+                        .antMatchers("/register", "/ping", "testDTO")
                         .permitAll()
 
 //
