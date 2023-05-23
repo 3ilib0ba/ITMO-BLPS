@@ -2,12 +2,12 @@ package evgesha.blps.lab1.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
@@ -58,5 +58,5 @@ public class RecipeDto {
     private String videoUrl;
 
     @JsonView
-    private Long userId;
+    private Integer userId;
 }

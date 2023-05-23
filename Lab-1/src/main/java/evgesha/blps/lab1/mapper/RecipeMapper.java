@@ -44,7 +44,7 @@ public class RecipeMapper {
                 recipe.getCuisine(),
                 recipe.getPhoto(),
                 recipe.getVideoUrl(),
-                recipe.getUser().getId()
+                recipe.getUserId()
         );
     }
 
@@ -87,7 +87,7 @@ public class RecipeMapper {
                 recipeDto.getCuisine(),
                 recipeDto.getPhoto(),
                 recipeDto.getVideoUrl(),
-                ownerOpt.get()
+                ownerOpt.get().getId()
         );
     }
 

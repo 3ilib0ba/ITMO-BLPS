@@ -1,12 +1,11 @@
 package evgesha.blps.lab1.entity;
 
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -77,9 +76,8 @@ public class Recipe {
     @Column(name = "video_url")
     private String videoUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+
+    private Integer userId;
 
     @Override
     public String toString() {
@@ -97,7 +95,7 @@ public class Recipe {
                 ", cuisine='" + cuisine + '\'' +
                 ", photo=" + photo +
                 ", videoUrl='" + videoUrl + '\'' +
-                ", user='" + user + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }
