@@ -24,7 +24,7 @@ public class PingController {
             @Valid @RequestBody TestDTO testDto
     ) {
         System.out.println("/testDTO");
-        return ResponseEntity.ok(testDto.getNumber());
+        return ResponseEntity.ok(testDto.getName());
     }
 
 }

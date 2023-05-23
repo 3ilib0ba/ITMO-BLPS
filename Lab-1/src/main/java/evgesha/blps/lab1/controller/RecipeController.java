@@ -1,6 +1,7 @@
 package evgesha.blps.lab1.controller;
 
 import evgesha.blps.lab1.dto.RecipeDto;
+import evgesha.blps.lab1.dto.TestDTO;
 import evgesha.blps.lab1.service.RecipeService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -36,15 +37,38 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.getAllRecipes());
     }
 
-    @PostMapping(value = "/add",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(
+            value = "/add",
+            consumes = {
+                    MediaType.MULTIPART_FORM_DATA_VALUE
+            }
+//            consumes = {"*/*"}
+    )
     public ResponseEntity<?> addRecipe(
-            @Valid @RequestBody RecipeDto recipeDto,
-            @RequestParam("file") MultipartFile image
+            @Valid RecipeDto recipeDto,
+            @RequestParam MultipartFile image
 
     ) {
+        System.out.println(recipeDto);
         return ResponseEntity.ok(recipeService.addRecipe(recipeDto, image));
     }
+
+
+    @PostMapping(
+            value = "/addTEST",
+            consumes = {
+                    MediaType.MULTIPART_FORM_DATA_VALUE,
+                    "application/json"
+            }
+    )
+    public ResponseEntity<?> addRecipeTEST(
+            @Valid TestDTO testDTO,
+            @RequestParam MultipartFile image
+
+    ) {
+        System.out.println(testDTO.getName());
+        return ResponseEntity.ok(testDTO + " " + image.getName());
+    }
+
 
 }

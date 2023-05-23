@@ -13,5 +13,4 @@ import lombok.NoArgsConstructor;
 public class TestDTO {
     private String name;
 
-    private int number;
 }
