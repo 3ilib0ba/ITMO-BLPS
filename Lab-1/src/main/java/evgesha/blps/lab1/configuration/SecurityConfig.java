@@ -32,22 +32,26 @@ public class SecurityConfig {
                 .exceptionHandling().authenticationEntryPoint(basicAuthenticationEntryPoint).and()
                 .authenticationProvider(jaasAuthenticationProvider)
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers(HttpMethod.POST, "/tag", "/image", "/article/**", "/article",
-                                "/notification/*/haveRead", "/notification/**"
-                        )
-                        .hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+//                        .requestMatchers(HttpMethod.POST, "/tag", "/image", "/article/**", "/article",
+//                                "/notification/*/haveRead", "/notification/**")
+//                        .hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+//
+//                        .requestMatchers(HttpMethod.GET,  "/notification")
+//                        .hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+//
+//                        .requestMatchers("/admin/**")
+//                        .hasAuthority(Role.ADMIN.name())
+//
+//                        .requestMatchers(HttpMethod.GET, "/tag", "/tag/*", "/tag/**", "/article", "/article/*", "/article/**",  "/article/*/image/*")
+//                        .permitAll()
+                                .antMatchers(HttpMethod.GET, "/recipes/getAll")
+                                .hasAnyAuthority(Role.ADMIN.name())
 
-                        .requestMatchers(HttpMethod.GET,  "/notification")
-                        .hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
-
-                        .requestMatchers("/admin/**")
-                        .hasAuthority(Role.ADMIN.name())
-
-                        .requestMatchers(HttpMethod.GET, "/tag", "/tag/*", "/tag/**", "/article", "/article/*", "/article/**",  "/article/*/image/*")
+                        .antMatchers(HttpMethod.POST, "/register")
                         .permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/register")
-                        .permitAll()
+                                .antMatchers(HttpMethod.POST, "/login")
+                                .permitAll()
 //
 //                        .requestMatchers("/v3/**", "/swagger-ui/**")
 //                        .permitAll()
