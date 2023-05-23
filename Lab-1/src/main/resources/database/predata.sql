@@ -1,3 +1,8 @@
+-- Заполняем первых юзеров
+insert into users values (1, 'adminka', '1234', 'ADMIN');
+insert into users values (2, 'test1', '1111', 'USER');
+insert into users values (3, 'test2', '2222', 'USER');
+
 -- Заполняем возможные назначения блюда
 insert into target values (1, 'breakfast');
 insert into target values (2, 'dinner');
@@ -27,7 +32,7 @@ insert into ingredient values (DEFAULT, 10, 'water', 3);
 insert into ingredient values (DEFAULT, 950, 'makarony', 2);
 
     -- Добавим рецепт борща
-insert into recipe values (DEFAULT, 'unbeliveable borsh', 'borsh', 'gigachad soup', 10, 100, 'Russia', null, null);
+insert into recipe values (DEFAULT, 'unbeliveable borsh', 'borsh', 'gigachad soup', 10, 100, 'Russia', null, null, 1);
 
     -- Создадим связи
 insert into recipe_category_relation values (DEFAULT, 1, 1);
@@ -39,7 +44,7 @@ insert into recipe_ingredient_relation values (DEFAULT, 1, 1);
 insert into recipe_ingredient_relation values (DEFAULT, 1, 2);
 
 -- Добавим рецепт макарон
-insert into recipe values (DEFAULT, 'homemade makarony', 'makarony', 'if you have not anything', 15, 4, 'World', null, null);
+insert into recipe values (DEFAULT, 'homemade makarony', 'makarony', 'if you have not anything', 15, 4, 'World', null, null, 2);
 
 -- Создадим связи
 insert into recipe_category_relation values (DEFAULT, 2, 2);

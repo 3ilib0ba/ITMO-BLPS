@@ -3,13 +3,16 @@ package evgesha.blps.lab1.mapper;
 
 import evgesha.blps.lab1.dto.RecipeDto;
 import evgesha.blps.lab1.entity.*;
+import evgesha.blps.lab1.exception.UserNotFoundException;
 import evgesha.blps.lab1.repository.CategoryRepository;
 import evgesha.blps.lab1.repository.TargetRepository;
+import evgesha.blps.lab1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,6 +25,9 @@ public class RecipeMapper {
 
     @Autowired
     private IngredientMapper ingredientMapper;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public RecipeDto toDto(Recipe recipe) {
         return new RecipeDto(
@@ -37,7 +43,8 @@ public class RecipeMapper {
                 recipe.getServingNumber(),
                 recipe.getCuisine(),
                 recipe.getPhoto(),
-                recipe.getVideoUrl()
+                recipe.getVideoUrl(),
+                recipe.getUser().getId()
         );
     }
 
@@ -60,6 +67,11 @@ public class RecipeMapper {
 
         List<Ingredient> ingredients = ingredientMapper.fromDtoFromList(recipeDto.getIngredients());
 
+        Optional<User> ownerOpt = userRepository.findById(recipeDto.getUserId());
+        if (ownerOpt.isEmpty()) {
+            throw new UserNotFoundException();
+        }
+
 
         return new Recipe(
                 recipeDto.getId(),
@@ -74,7 +86,8 @@ public class RecipeMapper {
                 recipeDto.getServingNumber(),
                 recipeDto.getCuisine(),
                 recipeDto.getPhoto(),
-                recipeDto.getVideoUrl()
+                recipeDto.getVideoUrl(),
+                ownerOpt.get()
         );
     }
 

@@ -1,4 +1,4 @@
-drop table if exists steps;
+drop table if exists comments;
 drop table if exists recipe_ingredient_relation;
 drop table if exists ingredient;
 drop table if exists measure;
@@ -9,3 +9,4 @@ drop table if exists target;
 drop table if exists recipe_category_relation;
 drop table if exists category;
 drop table if exists recipe;
+drop table if exists users;

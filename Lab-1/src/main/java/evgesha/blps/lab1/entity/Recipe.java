@@ -77,6 +77,10 @@ public class Recipe {
     @Column(name = "video_url")
     private String videoUrl;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Override
     public String toString() {
         return "Recipe{" +
@@ -93,6 +97,7 @@ public class Recipe {
                 ", cuisine='" + cuisine + '\'' +
                 ", photo=" + photo +
                 ", videoUrl='" + videoUrl + '\'' +
+                ", user='" + user + '\'' +
                 '}';
     }
 }

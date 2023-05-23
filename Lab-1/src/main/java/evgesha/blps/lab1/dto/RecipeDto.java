@@ -56,4 +56,7 @@ public class RecipeDto {
 
     @JsonView
     private String videoUrl;
+
+    @JsonView
+    private Long userId;
 }
