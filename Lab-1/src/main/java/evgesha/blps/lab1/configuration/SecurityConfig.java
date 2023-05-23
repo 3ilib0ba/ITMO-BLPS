@@ -44,14 +44,12 @@ public class SecurityConfig {
 //
 //                        .requestMatchers(HttpMethod.GET, "/tag", "/tag/*", "/tag/**", "/article", "/article/*", "/article/**",  "/article/*/image/*")
 //                        .permitAll()
-                                .antMatchers(HttpMethod.GET, "/recipes/getAll")
-                                .hasAnyAuthority(Role.ADMIN.name())
+                        .antMatchers(HttpMethod.GET, "/recipes/getAll")
+                        .hasAnyAuthority(Role.ADMIN.name())
 
                         .antMatchers(HttpMethod.POST, "/register")
                         .permitAll()
 
-                                .antMatchers(HttpMethod.POST, "/login")
-                                .permitAll()
 //
 //                        .requestMatchers("/v3/**", "/swagger-ui/**")
 //                        .permitAll()
