@@ -11,7 +11,9 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentDto {
+public class CommentUserDto {
+    private Long id;
+
     @NotBlank
     private String text;
 
@@ -19,4 +21,5 @@ public class CommentDto {
     @Min(1)
     private Long recipeId;
 
+    private String username;
 }
