@@ -4,6 +4,7 @@ import evgesha.blps.lab1.dto.CommentDto;
 import evgesha.blps.lab1.dto.CommentUserDto;
 import evgesha.blps.lab1.entity.Comment;
 import evgesha.blps.lab1.entity.User;
+import evgesha.blps.lab1.exception.CommentNotFoundException;
 import evgesha.blps.lab1.mapper.CommentMapper;
 import evgesha.blps.lab1.repository.CommentRepository;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,9 @@ public class CommentService {
 
     public CommentService(
             CommentRepository commentRepository,
-            CommentMapper commentMapper, AuthenticationService authenticationService) {
+            CommentMapper commentMapper,
+            AuthenticationService authenticationService
+    ) {
         this.commentRepository = commentRepository;
         this.commentMapper = commentMapper;
         this.authenticationService = authenticationService;
@@ -34,4 +37,11 @@ public class CommentService {
     }
 
 
+    public Comment getCommentById(Long commentId) {
+        Optional<Comment> isComment = commentRepository.findById(commentId);
+        if (isComment.isEmpty()) {
+            throw new CommentNotFoundException();
+        }
+        return isComment.get();
+    }
 }

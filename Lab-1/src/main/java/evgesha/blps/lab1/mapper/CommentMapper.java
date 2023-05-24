@@ -12,7 +12,9 @@ import evgesha.blps.lab1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class CommentMapper {
@@ -56,5 +58,11 @@ public class CommentMapper {
                 comment.getText(),
                 comment.getRecipe().getId(),
                 user.getUsername());
+    }
+
+    public List<CommentUserDto> toDto(List<Comment> comments) {
+        return comments.stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 }

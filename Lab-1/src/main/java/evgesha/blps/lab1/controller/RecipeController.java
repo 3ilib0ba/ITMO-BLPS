@@ -3,13 +3,15 @@ package evgesha.blps.lab1.controller;
 import evgesha.blps.lab1.dto.RecipeDto;
 import evgesha.blps.lab1.dto.TestDTO;
 import evgesha.blps.lab1.service.RecipeService;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Validated
 @RestController
@@ -21,6 +23,13 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
+    @GetMapping("/getById")
+    public ResponseEntity<?> getCurrentRecipeByIdWithComments(
+            @RequestParam(name = "recipeId")
+            @NotNull Long recipeId
+    ) {
+        return ResponseEntity.ok(recipeService.getRecipeByIdWithComments(recipeId));
+    }
 
     @GetMapping("/getByName")
     public ResponseEntity<?> getListOfRecipesByMealName(
