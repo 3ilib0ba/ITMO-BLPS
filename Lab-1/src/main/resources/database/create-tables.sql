@@ -87,7 +87,7 @@ create table if not exists comments
     text        text not null,
     recipe_id   int not null
         references recipe (id),
-    user_id     int not null
+    user_id     int
 );
 
 
