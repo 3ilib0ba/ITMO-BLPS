@@ -58,7 +58,6 @@ public class JaasLoginModule implements LoginModule {
     public boolean commit() throws LoginException {
         if(!loginSucceeded) return false;
         if(username == null) throw new UserNotFoundException();
-//        if(username == null) throw new UserNotFoundException("Username is not specified");
         Principal principal = (UserPrincipal) () -> username;
         subject.getPrincipals().add(principal);
         return true;

@@ -1,9 +1,11 @@
 package evgesha.blps.lab1.service;
 
 
+import evgesha.blps.lab1.dto.CurrentRecipeCommentsDto;
 import evgesha.blps.lab1.dto.MessageDto;
 import evgesha.blps.lab1.dto.RecipeDto;
 import evgesha.blps.lab1.entity.Recipe;
+import evgesha.blps.lab1.exception.RecipeNotFoundException;
 import evgesha.blps.lab1.mapper.RecipeMapper;
 import evgesha.blps.lab1.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -68,5 +71,20 @@ public class RecipeService {
 
         return new MessageDto(String.valueOf(recipeRepository.save(recipe).getId()));
     }
+
+    public CurrentRecipeCommentsDto getRecipeByIdWithComments(Long recipeId) {
+        Recipe recipe = getRecipeById(recipeId);
+
+        return recipeMapper.toDtoWithComments(recipe);
+    }
+
+    public Recipe getRecipeById(Long recipeId) {
+        Optional<Recipe> isRecipe = recipeRepository.findById(recipeId);
+        if (isRecipe.isEmpty()) {
+            throw new RecipeNotFoundException();
+        }
+        return isRecipe.get();
+    }
+
 
 }

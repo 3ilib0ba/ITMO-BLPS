@@ -8,10 +8,13 @@ import evgesha.blps.lab1.repository.UserRepository;
 import evgesha.blps.lab1.security.AuthenticationAdminRequest;
 import evgesha.blps.lab1.security.RegisterRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +52,12 @@ public class AuthenticationService {
                 .build();
         repository.save(user);
         return new MessageDto("Registered");
+    }
+
+    public Optional<User> getUserFromAuth() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return repository.findByUsername(currentPrincipalName);
     }
 }
 

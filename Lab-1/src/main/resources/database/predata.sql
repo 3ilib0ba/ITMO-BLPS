@@ -1,7 +1,3 @@
--- Заполняем первых юзеров
-insert into users values (1, 'adminka', '1234', 'ADMIN');
-insert into users values (2, 'test1', '1111', 'USER');
-insert into users values (3, 'test2', '2222', 'USER');
 
 -- Заполняем возможные назначения блюда
 insert into target values (1, 'breakfast');
@@ -31,7 +27,7 @@ insert into ingredient values (DEFAULT, 5, 'potato', 1);
 insert into ingredient values (DEFAULT, 10, 'water', 3);
 insert into ingredient values (DEFAULT, 950, 'makarony', 2);
 
-    -- Добавим рецепт борща
+    -- Добавим рецепт борща (последняя цифра = принадлежность к юзеру, которого нет в бд, но есть в xml)
 insert into recipe values (DEFAULT, 'unbeliveable borsh', 'borsh', 'gigachad soup', 10, 100, 'Russia', null, null, 1);
 
     -- Создадим связи
