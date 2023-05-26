@@ -2,11 +2,15 @@ package evgesha.blps.lab1.mapper;
 
 import evgesha.blps.lab1.dto.IngredientDto;
 import evgesha.blps.lab1.entity.Ingredient;
+import evgesha.blps.lab1.entity.Recipe;
+import evgesha.blps.lab1.exception.RecipeNotFoundException;
 import evgesha.blps.lab1.repository.IngredientRepository;
 import evgesha.blps.lab1.repository.MeasureRepository;
+import evgesha.blps.lab1.repository.RecipeRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -15,16 +19,24 @@ public class IngredientMapper {
 
     final MeasureRepository measureRepository;
 
-    public IngredientMapper(IngredientRepository ingredientRepository, MeasureRepository measureRepository) {
+    final RecipeRepository recipeRepository;
+
+    public IngredientMapper(
+            IngredientRepository ingredientRepository,
+            MeasureRepository measureRepository,
+            RecipeRepository recipeRepository
+    ) {
         this.ingredientRepository = ingredientRepository;
         this.measureRepository = measureRepository;
+        this.recipeRepository = recipeRepository;
     }
 
     public IngredientDto toDto(Ingredient ingredient) {
         return new IngredientDto(
                 ingredient.getCount(),
                 ingredient.getName(),
-                ingredient.getMeasure().getName()
+                ingredient.getMeasure().getName(),
+                ingredient.getRecipe().getId()
         );
     }
 
@@ -35,13 +47,17 @@ public class IngredientMapper {
     }
 
     public Ingredient fromDto(IngredientDto ingredientDto) {
+        Optional<Recipe> recipe = recipeRepository.findById(ingredientDto.getRecipeId());
+        if (recipe.isEmpty()) {
+            throw new RecipeNotFoundException();
+        }
+
         return new Ingredient(
                 0,
                 ingredientDto.getCount(),
                 ingredientDto.getName(),
-                // TODO Перенести проверку на тип тары в сервис measureService
-                //      В mapper не должно быть связей с repository
-                measureRepository.getMeasuresByName(ingredientDto.getMeasure())
+                measureRepository.getMeasuresByName(ingredientDto.getMeasure()),
+                recipe.get()
         );
     }
 

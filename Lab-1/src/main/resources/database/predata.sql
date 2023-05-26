@@ -22,10 +22,6 @@ insert into measure values (4, 'tablespoon');
 
 
 -- Заполняем один рецепт
-    -- Добавим ингредиенты
-insert into ingredient values (DEFAULT, 5, 'potato', 1);
-insert into ingredient values (DEFAULT, 10, 'water', 3);
-insert into ingredient values (DEFAULT, 950, 'makarony', 2);
 
     -- Добавим рецепт борща (последняя цифра = принадлежность к юзеру, которого нет в бд, но есть в xml)
 insert into recipe values (DEFAULT, 'unbeliveable borsh', 'borsh', 'gigachad soup', 10, 100, 'Russia', null, null, 1);
@@ -35,9 +31,6 @@ insert into recipe_category_relation values (DEFAULT, 1, 1);
 
 insert into recipe_target_relation values (DEFAULT, 1, 2);
 insert into recipe_target_relation values (DEFAULT, 1, 5);
-
-insert into recipe_ingredient_relation values (DEFAULT, 1, 1);
-insert into recipe_ingredient_relation values (DEFAULT, 1, 2);
 
 -- Добавим рецепт макарон
 insert into recipe values (DEFAULT, 'homemade makarony', 'makarony', 'if you have not anything', 15, 4, 'World', null, null, 2);
@@ -49,7 +42,8 @@ insert into recipe_category_relation values (DEFAULT, 2, 3);
 insert into recipe_target_relation values (DEFAULT, 2, 2);
 insert into recipe_target_relation values (DEFAULT, 2, 3);
 
-insert into recipe_ingredient_relation values (DEFAULT, 2, 3);
-insert into recipe_ingredient_relation values (DEFAULT, 2, 2);
-
-
+-- Добавим ингредиенты
+insert into ingredient values (DEFAULT, 5, 'potato', 1, 1);
+insert into ingredient values (DEFAULT, 10, 'water', 3, 1);
+insert into ingredient values (DEFAULT, 10, 'water', 3, 2);
+insert into ingredient values (DEFAULT, 950, 'makarony', 2, 2);

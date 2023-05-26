@@ -1,12 +1,14 @@
 package evgesha.blps.lab1.dto;
 
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
@@ -21,4 +23,7 @@ public class IngredientDto {
 
     @NotBlank
     private String measure;
+
+    @JsonIgnore
+    private Long recipeId;
 }

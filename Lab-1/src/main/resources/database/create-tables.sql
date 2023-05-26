@@ -69,16 +69,9 @@ create table if not exists ingredient
     count      int not null,
     name       varchar(50) not null,
     measure_id int not null
-        references measure (id)
-);
-
-create table if not exists recipe_ingredient_relation
-(
-    id            serial primary key,
-    recipe_id     int not null
-        references recipe (id),
-    ingredient_id int not null
-        references ingredient (id)
+        references measure (id),
+    recipe_id  int not null
+        references recipe (id)
 );
 
 create table if not exists comments

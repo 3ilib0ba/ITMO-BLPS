@@ -2,8 +2,11 @@ package evgesha.blps.lab1.service;
 
 
 import evgesha.blps.lab1.dto.CurrentRecipeCommentsDto;
+import evgesha.blps.lab1.dto.ImageDto;
 import evgesha.blps.lab1.dto.MessageDto;
 import evgesha.blps.lab1.dto.RecipeDto;
+import evgesha.blps.lab1.entity.Comment;
+import evgesha.blps.lab1.entity.Ingredient;
 import evgesha.blps.lab1.entity.Recipe;
 import evgesha.blps.lab1.exception.RecipeNotFoundException;
 import evgesha.blps.lab1.mapper.RecipeMapper;
@@ -26,16 +29,24 @@ public class RecipeService {
 
     private final IngredientService ingredientService;
 
+    private final CommentService commentService;
+
+    private final ImageService imageService;
+
     public RecipeService(
             RecipeRepository recipeRepository,
             TagService tagService,
             RecipeMapper recipeMapper,
-            IngredientService ingredientService
+            IngredientService ingredientService,
+            CommentService commentService,
+            ImageService imageService
     ) {
         this.recipeRepository = recipeRepository;
         this.tagService = tagService;
         this.recipeMapper = recipeMapper;
         this.ingredientService = ingredientService;
+        this.commentService = commentService;
+        this.imageService = imageService;
     }
 
 
@@ -76,6 +87,28 @@ public class RecipeService {
         Recipe recipe = getRecipeById(recipeId);
 
         return recipeMapper.toDtoWithComments(recipe);
+    }
+
+    public CurrentRecipeCommentsDto deleteRecipeAndReturnIt(Long recipeId) {
+        CurrentRecipeCommentsDto result =
+                recipeMapper.toDtoWithComments(getRecipeById(recipeId));
+
+        deleteRecipeById(recipeId);
+
+        return result;
+    }
+
+    public void deleteRecipeById(Long recipeId) {
+        Recipe recipe = getRecipeById(recipeId);
+
+        List<Comment> deletedComments = commentService.deleteAllCommentsByRecipe(recipe);
+        String imageName = recipe.getPhoto();
+        if (imageName != null) {
+            ImageDto deletedImage = imageService.deleteImageByName(recipe.getPhoto());
+        }
+        List<Ingredient> deletedIngredients = ingredientService.deleteIngredients(recipe.getIngredients());
+
+        recipeRepository.delete(recipe);
     }
 
     public Recipe getRecipeById(Long recipeId) {

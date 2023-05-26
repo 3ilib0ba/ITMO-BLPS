@@ -29,6 +29,10 @@ public class Ingredient {
     @JoinColumn(name = "measure_id", nullable = false)
     private Measure measure;
 
+    @ManyToOne
+    @JoinColumn(name = "recipe_id", nullable = false)
+    private Recipe recipe;
+
     @Override
     public String toString() {
         return "Ingredient{" +

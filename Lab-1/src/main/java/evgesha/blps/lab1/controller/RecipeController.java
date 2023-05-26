@@ -1,7 +1,6 @@
 package evgesha.blps.lab1.controller;
 
 import evgesha.blps.lab1.dto.RecipeDto;
-import evgesha.blps.lab1.dto.TestDTO;
 import evgesha.blps.lab1.service.RecipeService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -63,20 +62,27 @@ public class RecipeController {
     }
 
 
-    @PostMapping(
-            value = "/addTEST",
-            consumes = {
-                    MediaType.MULTIPART_FORM_DATA_VALUE,
-                    "application/json"
-            }
-    )
-    public ResponseEntity<?> addRecipeTEST(
-            @Valid TestDTO testDTO,
-            @RequestParam MultipartFile image
+//    @PostMapping(
+//            value = "/addTEST",
+//            consumes = {
+//                    MediaType.MULTIPART_FORM_DATA_VALUE,
+//                    "application/json"
+//            }
+//    )
+//    public ResponseEntity<?> addRecipeTEST(
+//            @Valid TestDTO testDTO,
+//            @RequestParam MultipartFile image
+//
+//    ) {
+//        System.out.println(testDTO.getName());
+//        return ResponseEntity.ok(testDTO + " " + image.getName());
+//    }
 
+    @DeleteMapping("/recipe")
+    public ResponseEntity<?> deleteRecipeById(
+            @RequestParam Long recipeId
     ) {
-        System.out.println(testDTO.getName());
-        return ResponseEntity.ok(testDTO + " " + image.getName());
+        return ResponseEntity.ok(recipeService.deleteRecipeAndReturnIt(recipeId));
     }
 
 

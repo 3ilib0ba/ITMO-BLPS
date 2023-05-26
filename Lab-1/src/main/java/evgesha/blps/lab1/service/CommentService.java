@@ -3,6 +3,7 @@ package evgesha.blps.lab1.service;
 import evgesha.blps.lab1.dto.CommentDto;
 import evgesha.blps.lab1.dto.CommentUserDto;
 import evgesha.blps.lab1.entity.Comment;
+import evgesha.blps.lab1.entity.Recipe;
 import evgesha.blps.lab1.entity.User;
 import evgesha.blps.lab1.exception.CommentNotFoundException;
 import evgesha.blps.lab1.mapper.CommentMapper;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -39,6 +41,13 @@ public class CommentService {
         Comment result = commentRepository.save(comment);
 
         return commentMapper.toDto(result);
+    }
+
+    public List<Comment> deleteAllCommentsByRecipe(Recipe recipe) {
+        return commentRepository
+                .findAllByRecipeId(recipe.getId()).stream()
+                .peek(commentRepository::delete)
+                .collect(Collectors.toList());
     }
 
     public CommentUserDto returnDeletedComment(Long commentId) {

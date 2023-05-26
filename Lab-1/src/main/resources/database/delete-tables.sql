@@ -1,5 +1,4 @@
 drop table if exists comments;
-drop table if exists recipe_ingredient_relation;
 drop table if exists ingredient;
 drop table if exists measure;
 drop table if exists recipe_tags_relation;

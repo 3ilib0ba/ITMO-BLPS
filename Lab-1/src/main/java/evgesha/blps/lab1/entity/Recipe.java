@@ -50,12 +50,7 @@ public class Recipe {
     )
     private List<Tag> tags;
 
-    @ManyToMany
-    @JoinTable(
-            name = "recipe_ingredient_relation",
-            joinColumns = {@JoinColumn(name = "recipe_id")},
-            inverseJoinColumns = {@JoinColumn(name = "ingredient_id")}
-    )
+    @OneToMany(mappedBy = "recipe")
     private List<Ingredient> ingredients;
 
     @Column(name = "author_comment")
