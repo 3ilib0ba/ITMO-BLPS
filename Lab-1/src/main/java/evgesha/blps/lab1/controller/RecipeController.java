@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -14,7 +13,6 @@ import javax.validation.constraints.NotNull;
 
 @Validated
 @RestController
-@RequestMapping("/recipes")
 public class RecipeController {
     private final RecipeService recipeService;
 
@@ -22,7 +20,7 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/recipes/getById")
     public ResponseEntity<?> getCurrentRecipeByIdWithComments(
             @RequestParam(name = "recipeId")
             @NotNull Long recipeId
@@ -30,7 +28,7 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.getRecipeByIdWithComments(recipeId));
     }
 
-    @GetMapping("/getByName")
+    @GetMapping("/recipes/getByName")
     public ResponseEntity<?> getListOfRecipesByMealName(
             @RequestParam(name = "recipeName")
             @NotBlank
@@ -39,13 +37,13 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.getAllByName(recipeName));
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/recipes/getAll")
     public ResponseEntity<?> getAllRecipes(
     ) {
         return ResponseEntity.ok(recipeService.getAllRecipes());
     }
 
-    @PostMapping(value = "/add",
+    @PostMapping(value = "/recipes/add",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addRecipe(
@@ -70,7 +68,7 @@ public class RecipeController {
 //        return ResponseEntity.ok(testDTO + " " + image.getName());
 //    }
 
-    @DeleteMapping("/recipe")
+    @DeleteMapping("/recipes/recipe")
     public ResponseEntity<?> deleteRecipeById(
             @RequestParam Long recipeId
     ) {

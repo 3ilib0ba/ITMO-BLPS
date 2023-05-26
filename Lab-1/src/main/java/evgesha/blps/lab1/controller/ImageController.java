@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 
 @RestController
-@RequestMapping("/image")
 public class ImageController {
     private final ImageService imageService;
 
@@ -19,14 +18,14 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @PostMapping()
+    @PostMapping("/image")
     public ResponseEntity<?> uploadImage(
             @RequestParam("file") MultipartFile file
     ) {
         return ResponseEntity.ok(imageService.saveImage(file));
     }
 
-    @GetMapping("/{uuid}")
+    @GetMapping("/image/{uuid}")
     public ResponseEntity<Object> downloadImage(
             @PathVariable("uuid") String filename
     ) {
@@ -45,7 +44,7 @@ public class ImageController {
                 .body(imageStream);
     }
 
-    @DeleteMapping("/{uuid}")
+    @DeleteMapping("/image/{uuid}")
     public ResponseEntity<?> deleteImage(
         @PathVariable("uuid") String filename
     ) {

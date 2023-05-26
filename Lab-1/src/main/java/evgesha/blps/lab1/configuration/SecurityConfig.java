@@ -32,11 +32,11 @@ public class SecurityConfig {
                 .exceptionHandling().authenticationEntryPoint(basicAuthenticationEntryPoint).and()
                 .authenticationProvider(jaasAuthenticationProvider)
                 .authorizeHttpRequests((authz) -> authz
-                        .antMatchers("/recipes/getAll")
+                        .antMatchers("/comments/delete", "/recipes/recipe")
                         .hasAnyAuthority(Role.ADMIN.name())
 
-                        .antMatchers("/register", "/ping", "testDTO")
-                        .permitAll()
+                        .antMatchers("/image", "/recipes/add")
+                        .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
 
                         .antMatchers("/**")
                         .permitAll()
