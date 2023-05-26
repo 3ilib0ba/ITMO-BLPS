@@ -12,6 +12,7 @@ import evgesha.blps.lab1.exception.RecipeNotFoundException;
 import evgesha.blps.lab1.mapper.RecipeMapper;
 import evgesha.blps.lab1.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,8 @@ public class RecipeService {
 
     private final ImageService imageService;
 
+//    private final BitronixTransactionManager bitronixTransactionManager;
+
     public RecipeService(
             RecipeRepository recipeRepository,
             TagService tagService,
@@ -39,6 +42,7 @@ public class RecipeService {
             IngredientService ingredientService,
             CommentService commentService,
             ImageService imageService
+//            BitronixTransactionManager bitronixTransactionManager
     ) {
         this.recipeRepository = recipeRepository;
         this.tagService = tagService;
@@ -46,6 +50,7 @@ public class RecipeService {
         this.ingredientService = ingredientService;
         this.commentService = commentService;
         this.imageService = imageService;
+//        this.bitronixTransactionManager = bitronixTransactionManager;
     }
 
 
@@ -65,6 +70,7 @@ public class RecipeService {
         return results.stream().map(recipeMapper::toDto).collect(Collectors.toList());
     }
 
+    @Transactional
     public MessageDto addRecipe(RecipeDto recipeDto) {
         Recipe recipe = recipeMapper.fromDto(recipeDto);
 
@@ -92,6 +98,7 @@ public class RecipeService {
         return recipeMapper.toDtoWithComments(recipe);
     }
 
+    @Transactional
     public CurrentRecipeCommentsDto deleteRecipeAndReturnIt(Long recipeId) {
         CurrentRecipeCommentsDto result =
                 recipeMapper.toDtoWithComments(getRecipeById(recipeId));

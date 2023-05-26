@@ -6,9 +6,11 @@ import evgesha.blps.lab1.entity.Comment;
 import evgesha.blps.lab1.entity.Recipe;
 import evgesha.blps.lab1.entity.User;
 import evgesha.blps.lab1.exception.CommentNotFoundException;
+import evgesha.blps.lab1.exception.UserNotFoundException;
 import evgesha.blps.lab1.mapper.CommentMapper;
 import evgesha.blps.lab1.repository.CommentRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,11 +36,16 @@ public class CommentService {
         return commentMapper.toDto(commentRepository.findAll());
     }
 
+    @Transactional
     public CommentUserDto postComment(CommentDto commentDto) {
         Optional<User> isUser = authenticationService.getUserFromAuth();
 
         Comment comment = commentMapper.fromDtoAndUser(commentDto, isUser);
         Comment result = commentRepository.save(comment);
+
+        if (commentDto.getRecipeId() == 1) {
+            throw new UserNotFoundException();
+        }
 
         return commentMapper.toDto(result);
     }
@@ -50,11 +57,13 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public CommentUserDto returnDeletedComment(Long commentId) {
         Comment comment = deleteCommentById(commentId);
         return commentMapper.toDto(comment);
     }
 
+    @Transactional
     public Comment deleteCommentById(Long commentId) {
         Comment deleted = getCommentById(commentId);
         commentRepository.delete(deleted);
