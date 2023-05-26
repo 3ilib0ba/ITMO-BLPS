@@ -42,8 +42,29 @@ insert into recipe_category_relation values (DEFAULT, 2, 3);
 insert into recipe_target_relation values (DEFAULT, 2, 2);
 insert into recipe_target_relation values (DEFAULT, 2, 3);
 
+-- Добавим рецепт окрошки
+insert into recipe values (DEFAULT, 'blizzard soup - okroshka', 'okroshka', 'strange soup', 5, 5, 'Moon', null, null, 2);
+
+-- Создадим связи
+insert into recipe_category_relation values (DEFAULT, 3, 2);
+insert into recipe_category_relation values (DEFAULT, 3, 3);
+
+insert into recipe_target_relation values (DEFAULT, 3, 2);
+insert into recipe_target_relation values (DEFAULT, 3, 3);
+
+
+
 -- Добавим ингредиенты
 insert into ingredient values (DEFAULT, 5, 'potato', 1, 1);
 insert into ingredient values (DEFAULT, 10, 'water', 3, 1);
 insert into ingredient values (DEFAULT, 10, 'water', 3, 2);
 insert into ingredient values (DEFAULT, 950, 'makarony', 2, 2);
+insert into ingredient values (DEFAULT, 1, 'kolbasa', 1, 3);
+insert into ingredient values (DEFAULT, 1, 'ukrop', 1, 3);
+insert into ingredient values (DEFAULT, 1, 'kvas', 3, 3);
+
+
+--Добавим комменты
+insert into comments values (DEFAULT, 'Wow how delicious', 3, 1);
+insert into comments values (DEFAULT, 'This Borsh is the food of the gods', 1, 2);
+insert into comments values (DEFAULT, 'this pasta is swesome', 2, 3);
