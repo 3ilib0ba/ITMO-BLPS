@@ -53,18 +53,6 @@ public class ImageService {
         return new ImageDto(fullName);
     }
 
-    public File getImage(String uuid) {
-        return new File(Paths.get(storageFolderPath, uuid).toString());
-    }
-
-    public InputStreamResource getImageStream(String uuid) {
-        try {
-            return new InputStreamResource(new FileInputStream(Paths.get(storageFolderPath, uuid).toString()));
-        } catch (FileNotFoundException e) {
-            throw new ImageGettingException();
-        }
-    }
-
     private String getShortImageFormat(String fullFormat) {
         String[] splittedFormat = fullFormat.split("/");
         if (splittedFormat.length != 2) {
@@ -78,15 +66,40 @@ public class ImageService {
         return format;
     }
 
-    private boolean checkFormatForAllowedType(String format) {
+    private void checkFormatForAllowedType(String format) {
         Optional<String> typeOf = Arrays.stream(allowedFormats)
                 .filter(type -> type.equals(format))
                 .findAny();
         if (typeOf.isPresent()) {
-            return true;
+            return;
         }
 
         throw new ImageNotAllowedFileTypeException();
+    }
+
+    public ImageDto deleteImageByName(String uuid) {
+        File image = getImage(uuid);
+
+        if (!image.exists()) {
+            throw new ImageGettingException();
+        }
+        if (!image.delete()) {
+            throw new ImageDeleteException();
+        }
+
+        return new ImageDto(uuid);
+    }
+
+    public File getImage(String uuid) {
+        return new File(Paths.get(storageFolderPath, uuid).toString());
+    }
+
+    public InputStreamResource getImageStream(String uuid) {
+        try {
+            return new InputStreamResource(new FileInputStream(Paths.get(storageFolderPath, uuid).toString()));
+        } catch (FileNotFoundException e) {
+            throw new ImageGettingException();
+        }
     }
 
 }

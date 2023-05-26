@@ -49,5 +49,12 @@ public class ImageController {
                 .body(imageStream);
     }
 
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<?> deleteImage(
+        @PathVariable("uuid") String filename
+    ) {
+        return ResponseEntity.ok(imageService.deleteImageByName(filename));
+    }
+
 
 }
