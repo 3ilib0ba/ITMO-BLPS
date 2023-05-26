@@ -79,7 +79,11 @@ public class RecipeService {
                         .collect(Collectors.toList())
         );
 
-        return new MessageDto(String.valueOf(recipeRepository.save(recipe).getId()));
+        Recipe result = recipeRepository.save(recipe);
+        result.getIngredients()
+                .forEach(ingredient -> ingredientService.setRecipeAfterAdded(ingredient, result));
+
+        return new MessageDto(String.valueOf(result.getId()));
     }
 
     public CurrentRecipeCommentsDto getRecipeByIdWithComments(Long recipeId) {

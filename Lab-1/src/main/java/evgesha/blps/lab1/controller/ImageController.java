@@ -19,11 +19,7 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @PostMapping(
-            consumes = {
-                    MediaType.MULTIPART_FORM_DATA_VALUE
-            }
-    )
+    @PostMapping()
     public ResponseEntity<?> uploadImage(
             @RequestParam("file") MultipartFile file
     ) {

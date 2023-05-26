@@ -47,6 +47,16 @@ public class IngredientMapper {
     }
 
     public Ingredient fromDto(IngredientDto ingredientDto) {
+        if (ingredientDto.getRecipeId() == null) {
+            return new Ingredient(
+                    0,
+                    ingredientDto.getCount(),
+                    ingredientDto.getName(),
+                    measureRepository.getMeasuresByName(ingredientDto.getMeasure()),
+                    null
+            );
+        }
+
         Optional<Recipe> recipe = recipeRepository.findById(ingredientDto.getRecipeId());
         if (recipe.isEmpty()) {
             throw new RecipeNotFoundException();

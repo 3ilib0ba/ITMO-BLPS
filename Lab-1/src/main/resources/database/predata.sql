@@ -33,7 +33,7 @@ insert into recipe_target_relation values (DEFAULT, 1, 2);
 insert into recipe_target_relation values (DEFAULT, 1, 5);
 
 -- Добавим рецепт макарон
-insert into recipe values (DEFAULT, 'homemade makarony', 'makarony', 'if you have not anything', 15, 4, 'World', null, null, 2);
+insert into recipe values (DEFAULT, 'homemade makarony', 'makarony', 'if you have not anything', 15, 4, 'World', null, null, 3);
 
 -- Создадим связи
 insert into recipe_category_relation values (DEFAULT, 2, 2);

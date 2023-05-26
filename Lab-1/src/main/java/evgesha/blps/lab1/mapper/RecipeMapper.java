@@ -74,13 +74,12 @@ public class RecipeMapper {
                 .map(tagName -> new Tag(0, tagName))
                 .toList();
 
-        List<Ingredient> ingredients = ingredientMapper.fromDtoFromList(recipeDto.getIngredients());
-
         Optional<User> ownerOpt = userRepository.findById(recipeDto.getUserId());
         if (ownerOpt.isEmpty()) {
             throw new UserNotFoundException();
         }
 
+        List<Ingredient> ingredients = ingredientMapper.fromDtoFromList(recipeDto.getIngredients());
 
         return new Recipe(
                 recipeDto.getId(),

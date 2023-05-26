@@ -70,7 +70,7 @@ create table if not exists ingredient
     name       varchar(50) not null,
     measure_id int not null
         references measure (id),
-    recipe_id  int not null
+    recipe_id  int
         references recipe (id)
 );
 

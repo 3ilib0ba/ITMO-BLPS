@@ -2,6 +2,7 @@ package evgesha.blps.lab1.service;
 
 
 import evgesha.blps.lab1.entity.Ingredient;
+import evgesha.blps.lab1.entity.Recipe;
 import evgesha.blps.lab1.exception.IngredientNotFoundException;
 import evgesha.blps.lab1.repository.IngredientRepository;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,11 @@ public class IngredientService {
                 measureService.checkMeasure(ingredient.getMeasure())
         );
         return ingredientRepository.save(ingredient);
+    }
+
+    public void setRecipeAfterAdded(Ingredient ingredient, Recipe recipe) {
+        ingredient.setRecipe(recipe);
+        ingredientRepository.save(ingredient);
     }
 
     public List<Ingredient> deleteIngredients(List<Ingredient> ingredients) {

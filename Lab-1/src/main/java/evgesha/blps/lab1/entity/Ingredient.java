@@ -30,7 +30,7 @@ public class Ingredient {
     private Measure measure;
 
     @ManyToOne
-    @JoinColumn(name = "recipe_id", nullable = false)
+    @JoinColumn(name = "recipe_id", nullable = true)
     private Recipe recipe;
 
     @Override
