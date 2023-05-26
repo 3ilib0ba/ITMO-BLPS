@@ -3,10 +3,7 @@ package evgesha.blps.lab1.controller;
 import evgesha.blps.lab1.dto.CommentDto;
 import evgesha.blps.lab1.service.CommentService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -18,6 +15,12 @@ public class CommentController {
             CommentService commentService
     ) {
         this.commentService = commentService;
+    }
+
+    @GetMapping("/comments/getAll")
+    public ResponseEntity<?> getAllComments(
+    ) {
+        return ResponseEntity.ok(commentService.getAllComments());
     }
 
     @GetMapping("/comments/getById")
@@ -33,4 +36,12 @@ public class CommentController {
     ) {
         return ResponseEntity.ok(commentService.postComment(commentDto));
     }
+
+    @DeleteMapping("/comments/delete")
+    public ResponseEntity<?> deleteCommentById(
+            @RequestParam Long commentId
+    ) {
+        return ResponseEntity.ok(commentService.returnDeletedComment(commentId));
+    }
+
 }

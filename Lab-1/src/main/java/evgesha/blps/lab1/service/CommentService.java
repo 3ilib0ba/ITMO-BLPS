@@ -9,6 +9,7 @@ import evgesha.blps.lab1.mapper.CommentMapper;
 import evgesha.blps.lab1.repository.CommentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,10 @@ public class CommentService {
         this.authenticationService = authenticationService;
     }
 
+    public List<CommentUserDto> getAllComments() {
+        return commentMapper.toDto(commentRepository.findAll());
+    }
+
     public CommentUserDto postComment(CommentDto commentDto) {
         Optional<User> isUser = authenticationService.getUserFromAuth();
 
@@ -36,6 +41,16 @@ public class CommentService {
         return commentMapper.toDto(result);
     }
 
+    public CommentUserDto returnDeletedComment(Long commentId) {
+        Comment comment = deleteCommentById(commentId);
+        return commentMapper.toDto(comment);
+    }
+
+    public Comment deleteCommentById(Long commentId) {
+        Comment deleted = getCommentById(commentId);
+        commentRepository.delete(deleted);
+        return deleted;
+    }
 
     public Comment getCommentById(Long commentId) {
         Optional<Comment> isComment = commentRepository.findById(commentId);
