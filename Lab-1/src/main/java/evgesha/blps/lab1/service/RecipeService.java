@@ -12,7 +12,6 @@ import evgesha.blps.lab1.exception.RecipeNotFoundException;
 import evgesha.blps.lab1.mapper.RecipeMapper;
 import evgesha.blps.lab1.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +65,7 @@ public class RecipeService {
         return results.stream().map(recipeMapper::toDto).collect(Collectors.toList());
     }
 
-    public MessageDto addRecipe(RecipeDto recipeDto, MultipartFile image) {
+    public MessageDto addRecipe(RecipeDto recipeDto) {
         Recipe recipe = recipeMapper.fromDto(recipeDto);
 
         recipe.setTags(

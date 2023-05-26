@@ -45,22 +45,14 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.getAllRecipes());
     }
 
-    @PostMapping(
-            value = "/add",
-            consumes = {
-                    MediaType.MULTIPART_FORM_DATA_VALUE
-            }
-//            consumes = {"*/*"}
-    )
+    @PostMapping(value = "/add",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addRecipe(
-            @Valid RecipeDto recipeDto,
-            @RequestParam MultipartFile image
-
+            @Valid @RequestBody RecipeDto recipeDto
     ) {
-        System.out.println(recipeDto);
-        return ResponseEntity.ok(recipeService.addRecipe(recipeDto, image));
+        return ResponseEntity.ok(recipeService.addRecipe(recipeDto));
     }
-
 
 //    @PostMapping(
 //            value = "/addTEST",
