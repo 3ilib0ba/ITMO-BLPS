@@ -6,7 +6,6 @@ import evgesha.blps.lab1.entity.Comment;
 import evgesha.blps.lab1.entity.Recipe;
 import evgesha.blps.lab1.entity.User;
 import evgesha.blps.lab1.exception.CommentNotFoundException;
-import evgesha.blps.lab1.exception.UserNotFoundException;
 import evgesha.blps.lab1.mapper.CommentMapper;
 import evgesha.blps.lab1.repository.CommentRepository;
 import org.springframework.stereotype.Service;
@@ -43,9 +42,9 @@ public class CommentService {
         Comment comment = commentMapper.fromDtoAndUser(commentDto, isUser);
         Comment result = commentRepository.save(comment);
 
-        if (commentDto.getRecipeId() == 1) {
-            throw new UserNotFoundException();
-        }
+//        if (commentDto.getRecipeId() == 1) {
+//            throw new UserNotFoundException();
+//        }
 
         return commentMapper.toDto(result);
     }
