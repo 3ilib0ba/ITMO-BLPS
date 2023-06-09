@@ -42,10 +42,6 @@ public class CommentService {
         Comment comment = commentMapper.fromDtoAndUser(commentDto, isUser);
         Comment result = commentRepository.save(comment);
 
-//        if (commentDto.getRecipeId() == 1) {
-//            throw new UserNotFoundException();
-//        }
-
         return commentMapper.toDto(result);
     }
 
