@@ -1,6 +1,5 @@
 package evgesha.blps.lab1.controller;
 
-import evgesha.blps.lab1.activemq.Producer;
 import evgesha.blps.lab1.dto.TestDTO;
 import evgesha.blps.lab1.entity.User;
 import evgesha.blps.lab1.service.AuthenticationService;
@@ -19,22 +18,14 @@ import java.util.Optional;
 public class PingController {
     private final AuthenticationService authenticationService;
 
-    private final Producer producer;
-
-    public PingController(
-            AuthenticationService authenticationService,
-            Producer producer
-    ) {
+    public PingController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
-        this.producer = producer;
     }
 
     @GetMapping("/ping")
     public ResponseEntity<?> ping() {
         System.out.println("/ping");
         Optional<User> isUser = authenticationService.getUserFromAuth();
-        producer.sendMessage("inbound.queue", "{\"name\": \"BIBA\"}");
-        producer.sendMessage("outbound.queue", "{\"name\": \"BIBA\"}");
         if (isUser.isEmpty()) {
             // АНОНИМ ПОГАНЫЙ
             return ResponseEntity.ok("Hello ANON from server Evgesha");
