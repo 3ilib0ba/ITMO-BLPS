@@ -52,22 +52,6 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.addRecipe(recipeDto));
     }
 
-//    @PostMapping(
-//            value = "/addTEST",
-//            consumes = {
-//                    MediaType.MULTIPART_FORM_DATA_VALUE,
-//                    "application/json"
-//            }
-//    )
-//    public ResponseEntity<?> addRecipeTEST(
-//            @Valid TestDTO testDTO,
-//            @RequestParam MultipartFile image
-//
-//    ) {
-//        System.out.println(testDTO.getName());
-//        return ResponseEntity.ok(testDTO + " " + image.getName());
-//    }
-
     @DeleteMapping("/recipes/recipe")
     public ResponseEntity<?> deleteRecipeById(
             @RequestParam Long recipeId

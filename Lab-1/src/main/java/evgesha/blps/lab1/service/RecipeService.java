@@ -1,6 +1,7 @@
 package evgesha.blps.lab1.service;
 
 
+import evgesha.blps.lab1.broker.MqttPublisher;
 import evgesha.blps.lab1.dto.CurrentRecipeCommentsDto;
 import evgesha.blps.lab1.dto.ImageDto;
 import evgesha.blps.lab1.dto.MessageDto;
@@ -11,6 +12,7 @@ import evgesha.blps.lab1.entity.Recipe;
 import evgesha.blps.lab1.exception.RecipeNotFoundException;
 import evgesha.blps.lab1.mapper.RecipeMapper;
 import evgesha.blps.lab1.repository.RecipeRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class RecipeService {
+    @Value("${topic.stat_count_views}")
+    private String STAT_COUNT_VIEWS_TOPIC;
+
+    private final MqttPublisher mqttPublisher;
+
     private final RecipeRepository recipeRepository;
 
     private final TagService tagService;
@@ -33,24 +40,21 @@ public class RecipeService {
 
     private final ImageService imageService;
 
-//    private final BitronixTransactionManager bitronixTransactionManager;
-
     public RecipeService(
-            RecipeRepository recipeRepository,
+            MqttPublisher mqttPublisher, RecipeRepository recipeRepository,
             TagService tagService,
             RecipeMapper recipeMapper,
             IngredientService ingredientService,
             CommentService commentService,
             ImageService imageService
-//            BitronixTransactionManager bitronixTransactionManager
     ) {
+        this.mqttPublisher = mqttPublisher;
         this.recipeRepository = recipeRepository;
         this.tagService = tagService;
         this.recipeMapper = recipeMapper;
         this.ingredientService = ingredientService;
         this.commentService = commentService;
         this.imageService = imageService;
-//        this.bitronixTransactionManager = bitronixTransactionManager;
     }
 
 
@@ -94,6 +98,8 @@ public class RecipeService {
 
     public CurrentRecipeCommentsDto getRecipeByIdWithComments(Long recipeId) {
         Recipe recipe = getRecipeById(recipeId);
+
+        mqttPublisher.publishToTopic(STAT_COUNT_VIEWS_TOPIC, String.valueOf(recipeId));
 
         return recipeMapper.toDtoWithComments(recipe);
     }

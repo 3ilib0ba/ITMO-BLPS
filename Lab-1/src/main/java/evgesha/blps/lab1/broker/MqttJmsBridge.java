@@ -1,6 +1,5 @@
 package evgesha.blps.lab1.broker;
 
-import evgesha.blps.lab1.configuration.JmsConfig;
 import org.eclipse.paho.client.mqttv3.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -12,13 +11,10 @@ public class MqttJmsBridge implements MqttCallback {
     private String mqttBrokerUrl;
 
     private final JmsTemplate jmsTemplate;
-    private final JmsConfig jmsConfig;
 
     public MqttJmsBridge(
-            JmsConfig jmsConfig,
             JmsTemplate jmsTemplate
-    ) throws MqttException {
-        this.jmsConfig = jmsConfig;
+    ) {
         this.jmsTemplate = jmsTemplate;
     }
 
