@@ -29,7 +29,7 @@ public class Lab1Application implements CommandLineRunner {
     public void run(String... arg0) throws Exception {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
 
-        mqttJmsBridge.setTopicQueueBridge("EMAIL");
+        mqttJmsBridge.setTopicQueueBridge("EMAIL_RECIPE_SENDER");
         mqttJmsBridge.setTopicQueueBridge("STAT_COUNT_VIEWS");
 
     }

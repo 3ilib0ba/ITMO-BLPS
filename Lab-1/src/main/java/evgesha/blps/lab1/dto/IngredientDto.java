@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class IngredientDto {
+public class IngredientDto implements Serializable {
     @NotNull
     @Min(value = 1, message = "set a count more than zero")
     private int count;

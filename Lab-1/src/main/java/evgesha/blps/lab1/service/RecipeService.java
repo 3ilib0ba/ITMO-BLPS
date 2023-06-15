@@ -2,10 +2,7 @@ package evgesha.blps.lab1.service;
 
 
 import evgesha.blps.lab1.broker.MqttPublisher;
-import evgesha.blps.lab1.dto.CurrentRecipeCommentsDto;
-import evgesha.blps.lab1.dto.ImageDto;
-import evgesha.blps.lab1.dto.MessageDto;
-import evgesha.blps.lab1.dto.RecipeDto;
+import evgesha.blps.lab1.dto.*;
 import evgesha.blps.lab1.entity.Comment;
 import evgesha.blps.lab1.entity.Ingredient;
 import evgesha.blps.lab1.entity.Recipe;
@@ -25,6 +22,9 @@ import java.util.stream.Collectors;
 public class RecipeService {
     @Value("${topic.stat_count_views}")
     private String STAT_COUNT_VIEWS_TOPIC;
+
+    @Value("${topic.email_recipe_mail_sender}")
+    private String EMAIL_RECIPE_MAIL_SENDER;
 
     private final MqttPublisher mqttPublisher;
 
@@ -125,6 +125,15 @@ public class RecipeService {
         List<Ingredient> deletedIngredients = ingredientService.deleteIngredients(recipe.getIngredients());
 
         recipeRepository.delete(recipe);
+    }
+
+    public EmailWithRecipeDto sendRecipeByEmail(Long recipeId, String email) {
+        Recipe recipe = getRecipeById(recipeId);
+        EmailWithRecipeDto result = new EmailWithRecipeDto(recipeMapper.toDto(recipe), email);
+
+        mqttPublisher.publishToTopic(EMAIL_RECIPE_MAIL_SENDER, result);
+
+        return result;
     }
 
     public Recipe getRecipeById(Long recipeId) {
