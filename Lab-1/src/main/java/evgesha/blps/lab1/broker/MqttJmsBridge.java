@@ -35,8 +35,8 @@ public class MqttJmsBridge implements MqttCallback {
 
     @Override
     public void messageArrived(String mqttTopic, MqttMessage mqttMessage) {
-        // При получении сообщения по MQTT, отправляем его в JMS очередь
-        jmsTemplate.send(mqttTopic, session -> session.createTextMessage(new String(mqttMessage.getPayload())));
+        // При получении сообщения по MQTT, отправляем его в JMS очередь (КАК ОБЪЕКТ, ЧТОБЫ МОЖНО БЫЛО ПЕРЕДАВАТЬ POJO)
+        jmsTemplate.send(mqttTopic, session -> session.createObjectMessage(mqttMessage.getPayload()));
     }
 
     @Override
