@@ -27,10 +27,10 @@ public class PingController {
         System.out.println("/ping");
         Optional<User> isUser = authenticationService.getUserFromAuth();
         if (isUser.isEmpty()) {
-            // АНОНИМ ПОГАНЫЙ
             return ResponseEntity.ok("Hello ANON from server Evgesha");
+        } else {
+            return ResponseEntity.ok("Hello " + isUser.get().getUsername() + " from server Evgesha");
         }
-        return ResponseEntity.ok("Hello " + isUser.get().getUsername() + " from server Evgesha");
     }
 
     @PostMapping(value = "testDTO")

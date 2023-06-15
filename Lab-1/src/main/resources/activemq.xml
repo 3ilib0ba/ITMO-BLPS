@@ -1,0 +1,4 @@
+<transportConnectors>
+    <!-- Другие коннекторы... -->
+    <transportConnector name="mqtt" uri="mqtt://0.0.0.0:1883"/>
+</transportConnectors>

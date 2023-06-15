@@ -1,0 +1,9 @@
+version: '3'
+services:
+  activemq:
+    container_name: activeMQ
+    image: "webcenter/activemq:latest"
+    ports:
+      - 61616:61616  # порт JMS
+      - 1883:1883    # порт MQTT
+      - 8161:8161    # порт веб-консоли ActiveMQ
