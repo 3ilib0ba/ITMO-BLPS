@@ -1,6 +1,7 @@
 package evgesha.blps.lab1.service;
 
 import evgesha.blps.lab1.dto.EmailWithRecipeDto;
+import evgesha.blps.lab1.dto.RecipeDto;
 import evgesha.blps.lab1.entity.EmailDetails;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,7 @@ import javax.jms.ObjectMessage;
 
 @Service
 public class EmailService {
-
     private final EmailServiceImpl mailSender;
-
 
     public EmailService(EmailServiceImpl mailSender) {
         this.mailSender = mailSender;
@@ -25,7 +24,16 @@ public class EmailService {
         EmailWithRecipeDto deserialized = (EmailWithRecipeDto) SerializationUtils.deserialize((byte[]) message.getObject());
         System.out.println(("get new message OBJECT = " + deserialized));
 
-        mailSender.sendSimpleMail(new EmailDetails("fridkin95@gmail.com", deserialized.getRecipeDto().toString(), "BLPS", null));
+        String mail = deserialized.getEmail();
+        RecipeDto recipeDto = deserialized.getRecipeDto();
+        String subject = "ПОВАРЕНОК: рецепт \"" + recipeDto.getHeading() + "\"";
+
+        System.out.println(mailSender.sendSimpleMail(new EmailDetails(
+                mail,
+                recipeDto.toString(),
+                subject,
+                null
+        )));
 
     }
 
