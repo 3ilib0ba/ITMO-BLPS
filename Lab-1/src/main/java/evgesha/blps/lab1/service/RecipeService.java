@@ -8,11 +8,16 @@ import evgesha.blps.lab1.exception.RecipeNotFoundException;
 import evgesha.blps.lab1.mapper.RecipeMapper;
 import evgesha.blps.lab1.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.SerializationUtils;
 
+import javax.jms.JMSException;
+import javax.jms.ObjectMessage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -42,6 +47,8 @@ public class RecipeService {
     private final CommentService commentService;
 
     private final ImageService imageService;
+
+    private TopRecipeViewsListDto currentTop;
 
     public RecipeService(
             MqttPublisher mqttPublisher,
@@ -152,6 +159,27 @@ public class RecipeService {
         return likeInfo;
     }
 
+    public List<RecipeWithViewsDto> getTopRecipesByViews() {
+        if (currentTop == null) {
+            return List.of();
+        }
+
+        List<Recipe> recipes = currentTop.getTopRecipesViews().stream()
+                .map(rv -> getRecipeById(rv.getId()))
+                .toList();
+
+        return recipes.stream()
+                .map(recipe -> {
+                    int views = currentTop.getTopRecipesViews().stream()
+                            .filter(recipeViewsDto -> recipeViewsDto.getId() == recipe.getId())
+                            .findAny()
+                            .get().getViewsCount();
+                    return new RecipeWithViewsDto(recipeMapper.toDto(recipe), views);
+                })
+                .collect(Collectors.toList());
+
+    }
+
     public Recipe getRecipeById(Long recipeId) {
         Optional<Recipe> isRecipe = recipeRepository.findById(recipeId);
         if (isRecipe.isEmpty()) {
@@ -161,4 +189,12 @@ public class RecipeService {
     }
 
 
+    @JmsListener(destination = "TOP_RECIPES")
+    public void receive(final ObjectMessage message) throws JMSException {
+        Object objectInput = SerializationUtils.deserialize((byte[]) message.getObject());
+        System.out.println(("got new like OBJECT = " + objectInput));
+        TopRecipeViewsListDto topList = (TopRecipeViewsListDto) Objects.requireNonNull(objectInput);
+
+        currentTop = topList;
+    }
 }

@@ -37,6 +37,12 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.getAllByName(recipeName));
     }
 
+    @GetMapping("/recipes/getTopRecipes")
+    public ResponseEntity<?> getTopRecipesByViews(
+    ) {
+        return ResponseEntity.ok(recipeService.getTopRecipesByViews());
+    }
+
     @GetMapping("/recipes/getAll")
     public ResponseEntity<?> getAllRecipes(
     ) {
