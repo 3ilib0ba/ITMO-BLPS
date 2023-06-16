@@ -2,7 +2,7 @@ package evgesha.blps.lab1.configuration;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -29,15 +29,17 @@ public class EmailConfig {
     @Value("${spring.mail.protocol}")
     private String protocol;
 
-    @Value("${mail.debug}")
-    private String debug;
+//    @Value("${mail.debug}")
+//    private String debug;
 
     @Bean
     public JavaMailSender getMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
         mailSender.setHost(host);
+//        mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(port);
+//        mailSender.setPort(587);
         mailSender.setUsername(username);
         mailSender.setPassword(password);
 
