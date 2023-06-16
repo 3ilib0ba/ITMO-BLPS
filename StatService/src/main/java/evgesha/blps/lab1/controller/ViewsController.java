@@ -12,9 +12,7 @@ import javax.validation.constraints.NotNull;
 @Validated
 @RestController
 public class ViewsController {
-
     private final RecipeViewsService recipeViewsService;
-
 
     public ViewsController(RecipeViewsService recipeViewsService) {
         this.recipeViewsService = recipeViewsService;
@@ -28,9 +26,9 @@ public class ViewsController {
         return ResponseEntity.ok(recipeViewsService.getViews(recipeId));
     }
 
-//    @GetMapping("/topviews")
-//    public ResponseEntity<?> getTopViews() {
-//        return ResponseEntity.ok(recipeViewsService.getTopViews());
-//    }
+    @GetMapping("/topViews")
+    public ResponseEntity<?> getTopViews() {
+        return ResponseEntity.ok(recipeViewsService.getTopViews());
+    }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.util.SerializationUtils;
 
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -41,16 +42,16 @@ public class RecipeViewsService {
         recipeViewsRepository.save(recipeViews);
     }
 
-    public Long getViews(Long recipeId) {
+    public Integer getViews(Long recipeId) {
         Optional<RecipeViews> recipeViews = recipeViewsRepository.findById(recipeId);
         if (recipeViews.isEmpty()) {
             throw  new RecipeNotFoundException();
         }
-        return (long) recipeViews.get().getViewsCount();
+        return recipeViews.get().getViewsCount();
     }
 
-//    public RecipeViews getTopViews() {
-//        return recipeViewsRepository.findTopByViewsCount();
-//    }
+    public List<RecipeViews> getTopViews() {
+        return recipeViewsRepository.findTop3ByOrderByViewsCountDesc();
+    }
 
 }
