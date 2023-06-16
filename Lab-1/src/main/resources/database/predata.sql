@@ -44,6 +44,10 @@ insert into recipe_target_relation values (DEFAULT, 2, 3);
 
 -- Добавим рецепт окрошки
 insert into recipe values (DEFAULT, 'blizzard soup - okroshka', 'okroshka', 'strange soup', 5, 5, 'Moon', null, null, 2);
+insert into recipe values (DEFAULT, 'poilo bogov', 'kuba libre', 'negrozi ujnomu centralu popivaya sok', 5, 5, 'kuba', null, null, 1);
+insert into recipe values (DEFAULT, 'esli netu denyak', 'doshirak', 'save your life', 5, 5, 'Korea', null, null, 1);
+
+
 
 -- Создадим связи
 insert into recipe_category_relation values (DEFAULT, 3, 2);
@@ -51,6 +55,9 @@ insert into recipe_category_relation values (DEFAULT, 3, 3);
 
 insert into recipe_target_relation values (DEFAULT, 3, 2);
 insert into recipe_target_relation values (DEFAULT, 3, 3);
+
+insert into recipe_target_relation values (DEFAULT, 5, 5);
+insert into recipe_target_relation values (DEFAULT, 6, 2);
 
 
 
@@ -61,10 +68,15 @@ insert into ingredient values (DEFAULT, 10, 'water', 3, 2);
 insert into ingredient values (DEFAULT, 950, 'makarony', 2, 2);
 insert into ingredient values (DEFAULT, 1, 'kolbasa', 1, 3);
 insert into ingredient values (DEFAULT, 1, 'ukrop', 1, 3);
-insert into ingredient values (DEFAULT, 1, 'kvas', 3, 3);
+insert into ingredient values (DEFAULT, 1, 'kvas', 3, 3);\
+insert into ingredient values (DEFAULT, 1, 'rom', 1, 5);
+insert into ingredient values (DEFAULT, 1, 'lemon', 1, 5);
+insert into ingredient values (DEFAULT, 1, 'bichpaket', 1, 6);
 
 
 --Добавим комменты
 insert into comments values (DEFAULT, 'Wow how delicious', 3, 1);
 insert into comments values (DEFAULT, 'This Borsh is the food of the gods', 1, 2);
 insert into comments values (DEFAULT, 'this pasta is swesome', 2, 3);
+insert into comments values (DEFAULT, 'почему на этом сайте все пишут транслитом', 6, 2);
+
