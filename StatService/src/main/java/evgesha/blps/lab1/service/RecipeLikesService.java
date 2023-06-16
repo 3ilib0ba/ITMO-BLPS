@@ -38,5 +38,10 @@ public class RecipeLikesService {
         }
     }
 
+    public Long getCountOfLike(Long recipeId) {
+        Long countOfLike = likeRepository.getCountOfLikes(recipeId);
+        return countOfLike;
+    }
+
 
 }
