@@ -1,9 +1,13 @@
 package evgesha.blps.lab1.service;
 
+import evgesha.blps.lab1.dto.TopRecipeViewsListDto;
 import evgesha.blps.lab1.entity.RecipeViews;
 import evgesha.blps.lab1.exception.RecipeNotFoundException;
+import evgesha.blps.lab1.mapper.RecipeViewsMapper;
 import evgesha.blps.lab1.repository.RecipeViewsRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
 
@@ -16,12 +20,21 @@ import java.util.Optional;
 
 @Service
 public class RecipeViewsService {
+    @Value("${jms.queue.top_recipes}")
+    private String TOP_RECIPES;
+
     private final RecipeViewsRepository recipeViewsRepository;
+    private final RecipeViewsMapper recipeViewsMapper;
+    private final JmsTemplate jmsTemplate;
 
     public RecipeViewsService(
-            RecipeViewsRepository recipeViewsRepository
+            RecipeViewsRepository recipeViewsRepository,
+            RecipeViewsMapper recipeViewsMapper,
+            JmsTemplate jmsTemplate
     ) {
         this.recipeViewsRepository = recipeViewsRepository;
+        this.recipeViewsMapper = recipeViewsMapper;
+        this.jmsTemplate = jmsTemplate;
     }
 
     @JmsListener(destination = "STAT_COUNT_VIEWS")
@@ -50,8 +63,19 @@ public class RecipeViewsService {
         return recipeViews.get().getViewsCount();
     }
 
-    public List<RecipeViews> getTopViews() {
-        return recipeViewsRepository.findTop3ByOrderByViewsCountDesc();
+    // TODO отправка на основной узел информации о лучших рецептах по просмотрам
+    //      реализовать через Cron
+    public void sendTopRecipesByViewsToMainService() {
+        System.out.println("aaaa");
+//        jmsTemplate.send(TOP_RECIPES, session ->
+//                session.createObjectMessage(SerializationUtils.serialize(getTopViews()))
+//        );
+    }
+
+    public TopRecipeViewsListDto getTopViews() {
+        List<RecipeViews> result = recipeViewsRepository.findTop3ByOrderByViewsCountDesc();
+        TopRecipeViewsListDto resultDto = recipeViewsMapper.toListDtoFromList(result);
+        return resultDto;
     }
 
 }
