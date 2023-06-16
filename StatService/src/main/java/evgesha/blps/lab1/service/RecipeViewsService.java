@@ -1,6 +1,7 @@
 package evgesha.blps.lab1.service;
 
 import evgesha.blps.lab1.entity.RecipeViews;
+import evgesha.blps.lab1.exception.RecipeNotFoundException;
 import evgesha.blps.lab1.repository.RecipeViewsRepository;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,17 @@ public class RecipeViewsService {
         recipeViews.setViewsCount(recipeViews.getViewsCount() + 1);
         recipeViewsRepository.save(recipeViews);
     }
+
+    public Long getViews(Long recipeId) {
+        Optional<RecipeViews> recipeViews = recipeViewsRepository.findById(recipeId);
+        if (recipeViews.isEmpty()) {
+            throw  new RecipeNotFoundException();
+        }
+        return (long) recipeViews.get().getViewsCount();
+    }
+
+//    public RecipeViews getTopViews() {
+//        return recipeViewsRepository.findTopByViewsCount();
+//    }
 
 }
