@@ -38,7 +38,6 @@ public class RecipeViewsService {
         recipeViews = isRecipeViews.get();
         recipeViews.setViewsCount(recipeViews.getViewsCount() + 1);
         recipeViewsRepository.save(recipeViews);
-
     }
 
 }
