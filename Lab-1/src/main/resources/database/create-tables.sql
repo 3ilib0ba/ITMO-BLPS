@@ -91,5 +91,13 @@ create table if not exists recipe_count_views
         check ( count_of_views >= 0 )
 );
 
+create table if not exists recipe_likes
+(
+    recipe_id       int,
+    user_id         int,
+    is_like         boolean,
+    primary key (recipe_id, user_id)
+);
+
 
 

@@ -31,6 +31,7 @@ public class Lab1Application implements CommandLineRunner {
 
         mqttJmsBridge.setTopicQueueBridge("EMAIL_RECIPE_SENDER");
         mqttJmsBridge.setTopicQueueBridge("STAT_COUNT_VIEWS");
+        mqttJmsBridge.setTopicQueueBridge("STAT_LIKES_RECIPES");
 
     }
 

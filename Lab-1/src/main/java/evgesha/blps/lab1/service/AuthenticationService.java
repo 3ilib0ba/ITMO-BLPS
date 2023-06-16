@@ -4,6 +4,7 @@ import evgesha.blps.lab1.dto.MessageDto;
 import evgesha.blps.lab1.entity.User;
 import evgesha.blps.lab1.enums.Role;
 import evgesha.blps.lab1.exception.UserAlreadyExistException;
+import evgesha.blps.lab1.exception.YouAreNotAuthorizedException;
 import evgesha.blps.lab1.repository.UserRepository;
 import evgesha.blps.lab1.security.AuthenticationAdminRequest;
 import evgesha.blps.lab1.security.RegisterRequest;
@@ -52,6 +53,14 @@ public class AuthenticationService {
                 .build();
         repository.save(user);
         return new MessageDto("Registered");
+    }
+
+    public User getAndCheckRealUser() {
+        Optional<User> isUser = getUserFromAuth();
+        if (isUser.isEmpty()) {
+            throw new YouAreNotAuthorizedException();
+        }
+        return isUser.get();
     }
 
     public Optional<User> getUserFromAuth() {

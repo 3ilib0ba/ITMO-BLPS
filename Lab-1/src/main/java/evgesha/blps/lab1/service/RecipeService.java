@@ -3,9 +3,7 @@ package evgesha.blps.lab1.service;
 
 import evgesha.blps.lab1.broker.MqttPublisher;
 import evgesha.blps.lab1.dto.*;
-import evgesha.blps.lab1.entity.Comment;
-import evgesha.blps.lab1.entity.Ingredient;
-import evgesha.blps.lab1.entity.Recipe;
+import evgesha.blps.lab1.entity.*;
 import evgesha.blps.lab1.exception.RecipeNotFoundException;
 import evgesha.blps.lab1.mapper.RecipeMapper;
 import evgesha.blps.lab1.repository.RecipeRepository;
@@ -26,7 +24,12 @@ public class RecipeService {
     @Value("${topic.email_recipe_mail_sender}")
     private String EMAIL_RECIPE_MAIL_SENDER;
 
+    @Value("${topic.stat_likes_recipes}")
+    private String STAT_LIKES_RECIPES;
+
     private final MqttPublisher mqttPublisher;
+
+    private final AuthenticationService authenticationService;
 
     private final RecipeRepository recipeRepository;
 
@@ -41,7 +44,9 @@ public class RecipeService {
     private final ImageService imageService;
 
     public RecipeService(
-            MqttPublisher mqttPublisher, RecipeRepository recipeRepository,
+            MqttPublisher mqttPublisher,
+            AuthenticationService authenticationService,
+            RecipeRepository recipeRepository,
             TagService tagService,
             RecipeMapper recipeMapper,
             IngredientService ingredientService,
@@ -49,6 +54,7 @@ public class RecipeService {
             ImageService imageService
     ) {
         this.mqttPublisher = mqttPublisher;
+        this.authenticationService = authenticationService;
         this.recipeRepository = recipeRepository;
         this.tagService = tagService;
         this.recipeMapper = recipeMapper;
@@ -134,6 +140,16 @@ public class RecipeService {
         mqttPublisher.publishToTopic(EMAIL_RECIPE_MAIL_SENDER, result);
 
         return result;
+    }
+
+    public LikeDto putLikeToRecipe(Long recipeId) {
+        User user = authenticationService.getAndCheckRealUser();
+        Recipe recipe = getRecipeById(recipeId);
+
+        LikeDto likeInfo = new LikeDto(recipeId, user.getId());
+        mqttPublisher.publishToTopic(STAT_LIKES_RECIPES, likeInfo);
+
+        return likeInfo;
     }
 
     public Recipe getRecipeById(Long recipeId) {

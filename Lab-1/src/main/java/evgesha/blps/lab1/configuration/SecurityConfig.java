@@ -35,7 +35,7 @@ public class SecurityConfig {
                         .antMatchers("/comments/delete", "/recipes/recipe")
                         .hasAnyAuthority(Role.ADMIN.name())
 
-                        .antMatchers("/image", "/recipes/add")
+                        .antMatchers("/image", "/recipes/add", "/likes/setLike")
                         .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
 
                         .antMatchers("/**")
