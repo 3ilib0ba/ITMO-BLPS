@@ -63,13 +63,10 @@ public class RecipeViewsService {
         return recipeViews.get().getViewsCount();
     }
 
-    // TODO отправка на основной узел информации о лучших рецептах по просмотрам
-    //      реализовать через Cron
     public void sendTopRecipesByViewsToMainService() {
-        System.out.println("aaaa");
-//        jmsTemplate.send(TOP_RECIPES, session ->
-//                session.createObjectMessage(SerializationUtils.serialize(getTopViews()))
-//        );
+        jmsTemplate.send(TOP_RECIPES, session ->
+                session.createObjectMessage(SerializationUtils.serialize(getTopViews()))
+        );
     }
 
     public TopRecipeViewsListDto getTopViews() {

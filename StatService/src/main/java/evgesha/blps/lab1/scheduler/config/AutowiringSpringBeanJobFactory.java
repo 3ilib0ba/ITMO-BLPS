@@ -1,4 +1,4 @@
-package evgesha.blps.lab1.scheduler;
+package evgesha.blps.lab1.scheduler.config;
 
 import org.quartz.spi.TriggerFiredBundle;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -6,9 +6,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
-public class SchedulerJobFactory extends SpringBeanJobFactory implements ApplicationContextAware {
+public class AutowiringSpringBeanJobFactory extends SpringBeanJobFactory implements ApplicationContextAware {
 
-    private AutowireCapableBeanFactory beanFactory;
+    private transient AutowireCapableBeanFactory beanFactory;
 
     @Override
     public void setApplicationContext(final ApplicationContext context) {
@@ -22,3 +22,4 @@ public class SchedulerJobFactory extends SpringBeanJobFactory implements Applica
         return job;
     }
 }
+
