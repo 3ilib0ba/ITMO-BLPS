@@ -1,1 +1,0 @@
-drop table if exists recipe_count_views;

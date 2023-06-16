@@ -1,3 +1,4 @@
+drop table if exists recipe_count_views;
 drop table if exists comments;
 drop table if exists ingredient;
 drop table if exists measure;
