@@ -60,4 +60,23 @@ public class RecipeDto implements Serializable {
 
     @JsonView
     private Integer userId;
+
+    @Override
+    public String toString() {
+        return "Recipe: \n" +
+                "\tid = " + id + "\n" +
+                "\tshort_description = " + short_description + '\n' +
+                "\theading = " + heading + '\n' +
+                "\tcategories = " + categories + "\n" +
+                "\ttargets = " + targets + "\n" +
+                "\ttags = " + tags + "\n" +
+                "\tingredients = " + ingredients + "\n" +
+                "\tauthorComment = '" + authorComment + '\n' +
+                "\tcookingTime = " + cookingTime + "\n" +
+                "\tservingNumber = " + servingNumber + "\n" +
+                "\tcuisine = " + cuisine + '\n' +
+                "\tphoto = " + photo + "\n" +
+                "\tvideoUrl = " + videoUrl + "\n" +
+                "\tuserId = " + userId + "\n";
+    }
 }
