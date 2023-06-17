@@ -18,7 +18,7 @@
                 <name>TopRecipesTrigger</name>
                 <job-name>TopRecipes</job-name>
                 <job-group>RecipesViews</job-group>
-                <cron-expression>0 * * ? * *</cron-expression>
+                <cron-expression>0/5 * * ? * *</cron-expression>
             </cron>
         </trigger>
 

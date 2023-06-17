@@ -57,7 +57,7 @@ insert into recipe_target_relation values (DEFAULT, 3, 2);
 insert into recipe_target_relation values (DEFAULT, 3, 3);
 
 insert into recipe_target_relation values (DEFAULT, 5, 5);
-insert into recipe_target_relation values (DEFAULT, 6, 2);
+insert into recipe_target_relation values (DEFAULT, 5, 2);
 
 
 
@@ -71,12 +71,12 @@ insert into ingredient values (DEFAULT, 1, 'ukrop', 1, 3);
 insert into ingredient values (DEFAULT, 1, 'kvas', 3, 3);\
 insert into ingredient values (DEFAULT, 1, 'rom', 1, 5);
 insert into ingredient values (DEFAULT, 1, 'lemon', 1, 5);
-insert into ingredient values (DEFAULT, 1, 'bichpaket', 1, 6);
+insert into ingredient values (DEFAULT, 1, 'bichpaket', 1, 1);
 
 
 --Добавим комменты
 insert into comments values (DEFAULT, 'Wow how delicious', 3, 1);
 insert into comments values (DEFAULT, 'This Borsh is the food of the gods', 1, 2);
 insert into comments values (DEFAULT, 'this pasta is swesome', 2, 3);
-insert into comments values (DEFAULT, 'почему на этом сайте все пишут транслитом', 6, 2);
+insert into comments values (DEFAULT, 'почему на этом сайте все пишут транслитом', 4, 2);
 
