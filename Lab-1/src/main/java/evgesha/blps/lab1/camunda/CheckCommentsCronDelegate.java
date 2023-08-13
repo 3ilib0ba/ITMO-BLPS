@@ -60,6 +60,7 @@ public class CheckCommentsCronDelegate {
     ) {
         log.info("JOB: post new comment");
 
+
         Map<String, Object> results = new HashMap<>();
         commentService.postComment(new CommentDTO(text, recipe_id))
     }

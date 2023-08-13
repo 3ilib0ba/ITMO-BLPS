@@ -22,6 +22,7 @@ public class GetAllCommetnsDelegate {
     @Autowired
     private CommentService commentService;
 
+
     @JobWorker(type = "get_all_comments", autoComplete = false)
     public Map<String, Object> getAllComments(final JobClient client, final ActivatedJob job) {
         log.info("JOB: get all comments");
