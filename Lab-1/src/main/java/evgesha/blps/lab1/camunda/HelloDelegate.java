@@ -15,7 +15,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class HelloDelegate {
     @JobWorker(type = "hello_world", autoComplete = true)
-    public Map<String, Object> getArticleIdsToReview(final JobClient client, final ActivatedJob job) {
+    public Map<String, Object> helloWorld(final JobClient client, final ActivatedJob job) {
         log.info("JOB: hello world!");
 
         Map<String, Object> map = new HashMap<>();
