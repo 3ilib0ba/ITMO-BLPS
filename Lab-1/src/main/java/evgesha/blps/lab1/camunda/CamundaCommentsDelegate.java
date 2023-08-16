@@ -1,10 +1,13 @@
 package evgesha.blps.lab1.camunda;
 
+import evgesha.blps.lab1.dto.CommentDto;
+import evgesha.blps.lab1.dto.CommentUserDto;
 import evgesha.blps.lab1.entity.Comment;
 import evgesha.blps.lab1.service.CommentService;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
 import io.camunda.zeebe.spring.client.annotation.JobWorker;
+import io.camunda.zeebe.spring.client.annotation.Variable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +20,7 @@ import java.util.Map;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CheckCommentsCronDelegate {
+public class CamundaCommentsDelegate {
     @Autowired
     private CommentService commentService;
 
@@ -39,16 +42,15 @@ public class CheckCommentsCronDelegate {
 
     @JobWorker(type = "get_all_comments", autoComplete = true)
     public Map<String, Object> getAllComments(final JobClient client, final ActivatedJob job) {
-        log.info("JOB: get all comments");
+        log.info("JOB: get all comments ");
 
         Map<String, Object> results = new HashMap<>();
-
         List<CommentUserDto> deletedComments  = commentService.getAllComments();
         StringBuilder commentsToString = new StringBuilder("");
-        for (CommentUserDto comment : deletedComments) {
-            commentsToString.append(comment.toString()).append(" ");
+        for (CommentUserDto commentUserDto : deletedComments) {
+            commentsToString.append(commentUserDto.toString()).append(" ");
         }
-        results.put("all_commetns", commentsToString.toString());
+        results.put("all_comments", commentsToString.toString());
 
         return results;
     }
@@ -56,13 +58,14 @@ public class CheckCommentsCronDelegate {
     @JobWorker(type = "post_comment", autoComplete = true)
     public void postComment(final JobClient client, final ActivatedJob job,
                             @Variable String text,
-                            @Variable Long recipe_id
+                            @Variable Long recipe_id,
+                            @Variable Integer user_id
     ) {
         log.info("JOB: post new comment");
-
-
+        log.info(text + " " + recipe_id);
+        log.info("user_id {}", user_id);
         Map<String, Object> results = new HashMap<>();
-        commentService.postComment(new CommentDTO(text, recipe_id))
+        commentService.postComment(new CommentDto(text, recipe_id));
     }
 
 }
