@@ -70,7 +70,7 @@ public class RecipeService {
         this.imageService = imageService;
     }
 
-
+    @Transactional
     public List<RecipeDto> getAllByName(String recipeName) {
         List<Recipe> results = recipeRepository.findByHeadingContainsIgnoreCase(recipeName);
         if (results.size() == 0) {
@@ -79,6 +79,7 @@ public class RecipeService {
         return results.stream().map(recipeMapper::toDto).collect(Collectors.toList());
     }
 
+    @Transactional
     public List<RecipeDto> getAllRecipes() {
         List<Recipe> results = recipeRepository.findAll();
         if (results.size() == 0) {
