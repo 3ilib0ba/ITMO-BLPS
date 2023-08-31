@@ -1,8 +1,11 @@
 package evgesha.blps.lab1.camunda;
 
+import evgesha.blps.lab1.dto.MessageDto;
 import evgesha.blps.lab1.entity.User;
 import evgesha.blps.lab1.exception.UserNotFoundException;
 import evgesha.blps.lab1.repository.UserRepository;
+import evgesha.blps.lab1.security.RegisterRequest;
+import evgesha.blps.lab1.service.AuthenticationService;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
 import io.camunda.zeebe.spring.client.annotation.JobWorker;
@@ -27,6 +30,24 @@ public class AuthByCamunda {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private AuthenticationService authService;
+
+
+    @JobWorker(type = "register", autoComplete = true)
+    public Map<String, Object> register(final JobClient client, final ActivatedJob job,
+                                                   @Variable String login,
+                                                   @Variable String password
+    ) {
+        log.info("JOB: register");
+
+        RegisterRequest request = new RegisterRequest(login, password);
+        MessageDto message = authService.register(request);
+
+
+        log.info("user_id {}", message.getMessage());
+        return Map.of("registered", message.getMessage());
+    }
 
     @JobWorker(type = "user_auth", autoComplete = true)
     public Map<String, Object> anonLoginAndGetUser(final JobClient client, final ActivatedJob job,

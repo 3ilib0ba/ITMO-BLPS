@@ -1,8 +1,12 @@
 package evgesha.blps.lab1.camunda;
 
+import evgesha.blps.lab1.broker.MqttPublisher;
 import evgesha.blps.lab1.dto.CommentUserDto;
 import evgesha.blps.lab1.dto.IngredientDto;
+import evgesha.blps.lab1.dto.LikeDto;
 import evgesha.blps.lab1.dto.RecipeDto;
+import evgesha.blps.lab1.entity.Recipe;
+import evgesha.blps.lab1.entity.User;
 import evgesha.blps.lab1.service.RecipeService;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
@@ -11,6 +15,7 @@ import io.camunda.zeebe.spring.client.annotation.Variable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import scala.Int;
 
@@ -26,6 +31,12 @@ public class CamundaRecipesDelegate {
 
     @Autowired
     private RecipeService recipeService;
+
+    @Autowired
+    private MqttPublisher mqttPublisher;
+
+    @Value("${topic.stat_likes_recipes}")
+    private String STAT_LIKES_RECIPES;
 
     @JobWorker(type = "post_recipe", autoComplete = true)
     public Map<String, Object> postRecipe(final JobClient client, final ActivatedJob job,
@@ -72,12 +83,12 @@ public class CamundaRecipesDelegate {
 
     @JobWorker(type = "get_recipe_by_name", autoComplete = true)
     public Map<String, Object> getRecipeByName(final JobClient client, final ActivatedJob job,
-                                             @Variable String recipe_name
+                                               @Variable String recipe_name
     ) {
         log.info("JOB: get recipe by name ");
 
         Map<String, Object> results = new HashMap<>();
-        List<RecipeDto> recipes  = recipeService.getAllByName(recipe_name);
+        List<RecipeDto> recipes = recipeService.getAllByName(recipe_name);
         StringBuilder recipesToString = new StringBuilder("");
         for (RecipeDto recipeUserDto : recipes) {
             recipesToString.append(recipeUserDto.toString()).append(" ");
@@ -94,7 +105,7 @@ public class CamundaRecipesDelegate {
         log.info("JOB: get all recipes ");
 
         Map<String, Object> results = new HashMap<>();
-        List<RecipeDto> recipes  = recipeService.getAllRecipes();
+        List<RecipeDto> recipes = recipeService.getAllRecipes();
         StringBuilder recipesToString = new StringBuilder("");
         for (RecipeDto recipeUserDto : recipes) {
             recipesToString.append(recipeUserDto.toString()).append(" ");
@@ -103,4 +114,21 @@ public class CamundaRecipesDelegate {
 
         return results;
     }
+
+    @JobWorker(type = "put_like", autoComplete = true)
+    public Map<String, Object> putLike(final JobClient client, final ActivatedJob job,
+                                       @Variable Long recipe_id,
+                                       @Variable Integer user_id
+    ) {
+        log.info("JOB: put like");
+
+        Recipe recipe = recipeService.getRecipeById(recipe_id);
+
+        LikeDto likeInfo = new LikeDto(recipe_id, user_id);
+        mqttPublisher.publishToTopic(STAT_LIKES_RECIPES, likeInfo);
+
+        log.info(likeInfo.toString());
+        return Map.of("like", likeInfo.toString());
+    }
+
 }
