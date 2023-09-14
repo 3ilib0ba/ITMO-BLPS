@@ -106,10 +106,15 @@
             <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.camunda</groupId>
+            <artifactId>spring-zeebe-starter</artifactId>
+            <version>8.2.1</version>
         </dependency>
     </dependencies>
 

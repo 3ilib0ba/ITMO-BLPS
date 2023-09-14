@@ -38,7 +38,7 @@ public class JaasLoginModule implements LoginModule {
         var nameCallback = new NameCallback("username");
         var passwordCallback = new PasswordCallback("password", false);
         try {
-            callbackHandler.handle(new Callback[] {nameCallback, passwordCallback});
+            callbackHandler.handle(new Callback[]{nameCallback, passwordCallback});
         } catch (IOException | UnsupportedCallbackException e) {
             throw new RuntimeException(e);
         }
@@ -56,8 +56,8 @@ public class JaasLoginModule implements LoginModule {
 
     @Override
     public boolean commit() throws LoginException {
-        if(!loginSucceeded) return false;
-        if(username == null) throw new UserNotFoundException();
+        if (!loginSucceeded) return false;
+        if (username == null) throw new UserNotFoundException();
         Principal principal = (UserPrincipal) () -> username;
         subject.getPrincipals().add(principal);
         return true;
